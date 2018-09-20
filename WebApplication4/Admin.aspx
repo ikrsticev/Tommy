@@ -28,11 +28,11 @@
 &nbsp; </span>
     <div>
 
-        <asp:Button ID="btnAdministracija" runat="server" Text="Pregled i administracija korisnika" />
+        <asp:Button ID="btnAdministracija" runat="server" Text="Pregled i administracija korisnika" OnClick="btnAdministracija_Click" />
 
         <br />
         <br />
-        <asp:Button ID="btnUnos" runat="server" OnClick="Button2_Click" Text="Unos novog korisnika" />
+        <asp:Button ID="btnUnos" runat="server" OnClick="btnUnos_Click" Text="Unos novog korisnika" />
 
     </div>
     </form>

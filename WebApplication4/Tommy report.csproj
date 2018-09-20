@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin.aspx" />
+    <Content Include="Administracija.aspx" />
     <Content Include="DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
@@ -88,6 +89,7 @@
     </Content>
     <None Include="packages.config" />
     <Content Include="Regionalni menadzer.aspx" />
+    <Content Include="UnosKorisnika.aspx" />
     <Content Include="web.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
@@ -109,6 +111,13 @@
     </Compile>
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administracija.aspx.cs">
+      <DependentUpon>Administracija.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administracija.aspx.designer.cs">
+      <DependentUpon>Administracija.aspx</DependentUpon>
     </Compile>
     <Compile Include="DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -143,6 +152,13 @@
     </Compile>
     <Compile Include="Regionalni menadzer.aspx.designer.cs">
       <DependentUpon>Regionalni menadzer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UnosKorisnika.aspx.cs">
+      <DependentUpon>UnosKorisnika.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UnosKorisnika.aspx.designer.cs">
+      <DependentUpon>UnosKorisnika.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

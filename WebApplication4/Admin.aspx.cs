@@ -16,9 +16,14 @@ namespace WebApplication4
             lblDate.Text = DateTime.Today.ToString().Split(' ')[0];
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        protected void btnAdministracija_Click(object sender, EventArgs e)
         {
+            Response.Redirect("Administracija.aspx");
+        }
 
+        protected void btnUnos_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("UnosKorisnika.aspx");
         }
     }
 }
