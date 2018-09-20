@@ -37,10 +37,10 @@
                 <tr>
                     <td>RazinaId</td>
                     <td>
-                        <asp:RadioButton ID="rdb1" runat="server" Text="Admin" />
-                        <asp:RadioButton ID="rdb2" runat="server" Text="Regionalni menadzer" />
-                        <asp:RadioButton ID="rdb3" runat="server" Text="Poslovnica" />
-                        <asp:RadioButton ID="rdb4" runat="server" Text="Korisnik" />
+                        <asp:RadioButton ID="rdb1" runat="server" Text="Admin" GroupName="Radio" />
+                        <asp:RadioButton ID="rdb2" runat="server" Text="Regionalni menadzer" GroupName="Radio" />
+                        <asp:RadioButton ID="rdb3" runat="server" Text="Poslovnica" GroupName="Radio" />
+                        <asp:RadioButton ID="rdb4" runat="server" Text="Korisnik" Checked="True" GroupName="Radio" />
                     </td>
                 </tr>
                 <tr>
