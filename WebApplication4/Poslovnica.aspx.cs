@@ -37,7 +37,7 @@ namespace WebApplication4
 
                 string query = "SELECT [Broj poslovnice] FROM Poslovnica P left outer join Poslovnica_Users PU on P.PoslovnicaId = PU.PoslovnicaId left outer join Users U on PU.UserId = U.UserId WHERE U.UserId = @UserId";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@UserId", 30);
+                sqlCmd.Parameters.AddWithValue("@UserId", Session["ID"]);
                 LabelPoslovnica.Text = sqlCmd.ExecuteScalar().ToString() + DateTime.UtcNow.ToString();
 
                 string query2 = @"SELECT P.PoslovnicaId from Users U
@@ -45,7 +45,7 @@ namespace WebApplication4
                     left outer join Poslovnica P on PU.PoslovnicaId = P.PoslovnicaId
                     WHERE P.[Broj poslovnice] = U.Username and U.UserId = @UserId";
                 SqlCommand sqlCmd2 = new SqlCommand(query2, sqlCon);
-                sqlCmd2.Parameters.AddWithValue("@UserId", 30);
+                sqlCmd2.Parameters.AddWithValue("@UserId", Session["ID"]);
                 PoslId = sqlCmd2.ExecuteScalar().ToString();
 
                 query = "SELECT OdjelId FROM Odjel_Poslovnica OP left outer join Poslovnica P on P.PoslovnicaId = OP.PoslovnicaId WHERE P.PoslovnicaId = " + PoslId;
