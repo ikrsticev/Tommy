@@ -85,22 +85,22 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.RadioButton rdb4;
         
         /// <summary>
-        /// CheckBox1 control.
+        /// cbxDisabled control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox1;
+        protected global::System.Web.UI.WebControls.CheckBox cbxDisabled;
         
         /// <summary>
-        /// CheckBox2 control.
+        /// cbxEnabled control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox2;
+        protected global::System.Web.UI.WebControls.CheckBox cbxEnabled;
         
         /// <summary>
         /// btnUnos control.

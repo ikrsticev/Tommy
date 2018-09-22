@@ -38,7 +38,7 @@ namespace WebApplication4
                 bool ADcon = true;
                 try
                 {
-                    using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "192.168.252.4", "sso.appizvjestaji", "Nak0nN0ciD0laziDan"))
+                    using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "192.168.252.4"))
                     {
                         // validate the credentials
                         isValid = pc.ValidateCredentials(txtUsername.Text.Trim(), txtPassword.Text.Trim());

@@ -46,13 +46,13 @@
                 <tr>
                     <td>disabled</td>
                     <td>
-                        <asp:CheckBox ID="CheckBox1" runat="server" />
+                        <asp:CheckBox ID="cbxDisabled" runat="server" />
                     </td>
                 </tr>
                 <tr>
                     <td>enabled</td>
                     <td>
-                        <asp:CheckBox ID="CheckBox2" runat="server" />
+                        <asp:CheckBox ID="cbxEnabled" runat="server" />
                     </td>
                 </tr>
             </table>

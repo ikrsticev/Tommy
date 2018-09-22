@@ -6,6 +6,9 @@
 <head runat="server">
     <title></title>
     <style>
+	    .auto-style1 {
+            height: 26px;
+        }
 	</style>
 	<script type="text/javascript">
 
@@ -51,82 +54,165 @@
 	</tr>
 	<tr>
 		<td>Ukupan broj radnika:</td>
-		<td><input class="mesnica"></td>
-		<td><input class="ribarnica"></td>
-		<td><input class="gastro"></td>
-		<td><input class="poslovnica"></td>
+		<td>
+            <asp:TextBox ID="txtMesnicaUBR" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaUBR" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroUBR" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaUBR" runat="server"></asp:TextBox>
+        </td>
 	</tr>
 	<tr>
 		<td>Broj radnika koji su radili:</td>
-		<td><input class="mesnica"></td>
-		<td><input class="ribarnica"></td>
-		<td><input class="gastro"></td>
-		<td><input class="poslovnica"></td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBRKR" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBRKR" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBRKR" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBRKR" runat="server"></asp:TextBox>
+        </td>
 	</tr>
 	<tr>
 		<td>Broj radnika na slobodnim danima:</td>
-		<td><input class="mesnica"></td>
-		<td><input class="ribarnica"></td>
-		<td><input class="gastro"></td>
-		<td><input class="poslovnica"></td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBRSD" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBRSD" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBRSD" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBRSD" runat="server"></asp:TextBox>
+        </td>
 	</tr>
 	<tr>
 		<td>Broj radnika na godišnjem odmoru:</td>
-		<td><input class="mesnica"></td>
-		<td><input class="ribarnica"></td>
-		<td><input class="gastro"></td>
-		<td><input class="poslovnica"></td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBRGO" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBRGO" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBRGO" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBRGO" runat="server"></asp:TextBox>
+        </td>
 	</tr>
 	<tr>
 		<td>Broj radnika na kratkotrajnom bolovanju:</td>
-		<td><input class="mesnica"></td>
-		<td><input class="ribarnica"></td>
-		<td><input class="gastro"></td>
-		<td><input class="poslovnica"></td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBRKB" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBRKB" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBRKB" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBRKB" runat="server"></asp:TextBox>
+        </td>
 	</tr>
 	<tr>
 		<td>Broj radnika na dugotrajnom bolovanju:</td>
-		<td><input class="mesnica"></td>
-		<td><input class="ribarnica"></td>
-		<td><input class="gastro"></td>
-		<td><input class="poslovnica"></td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBRDB" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBRDB" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBRDB" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBRDB" runat="server"></asp:TextBox>
+        </td>
 	</tr>
 	<tr>
 		<td>Broj studenata:</td>
-		<td><input class="mesnica"></td>
-		<td><input class="ribarnica"></td>
-		<td><input class="gastro"></td>
-		<td><input class="poslovnica"></td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBS" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBS" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBS" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBS" runat="server"></asp:TextBox>
+        </td>
 	</tr>
 	<tr>
-		<td>Utrošeni radni sati:</td>
-		<td><input class="mesnica"></td>
-		<td><input class="ribarnica"></td>
-		<td><input class="gastro"></td>
-		<td><input class="poslovnica"></td>
+		<td>Utrošeni radni sati (A):</td>
+		<td>
+            <asp:TextBox ID="txtMesnicaSati" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaSati" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroSati" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaSati" runat="server"></asp:TextBox>
+        </td>
 	</tr>
 	<tr>
-		<td>Promet:</td>
-		<td><input class="mesnica"></td>
-		<td><input class="ribarnica"></td>
-		<td><input class="gastro"></td>
-		<td><input class="poslovnica"></td>
+		<td class="auto-style1">Promet (B):</td>
+		<td class="auto-style1">
+            <asp:TextBox ID="txtMesnicaPromet" runat="server"></asp:TextBox>
+        </td>
+		<td class="auto-style1">
+            <asp:TextBox ID="txtRibarnicaPromet" runat="server"></asp:TextBox>
+        </td>
+		<td class="auto-style1">
+            <asp:TextBox ID="txtGastroPromet" runat="server"></asp:TextBox>
+        </td>
+		<td class="auto-style1">
+            <asp:TextBox ID="txtPoslovnicaPromet" runat="server"></asp:TextBox>
+        </td>
 	</tr>
 	<tr>
-		<td>Učinkovitost:</td>
-		<td><input class="mesnica"></td>
-		<td><input class="ribarnica"></td>
-		<td><input class="gastro"></td>
-		<td><input class="poslovnica"></td>
+		<td>Učinkovitost (A/B):</td>
+		<td>
+            <asp:TextBox ID="txtMesnicaUcinkovitost" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaUcinkovitost" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroUcinkovitost" runat="server"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaUcinkovitost" runat="server"></asp:TextBox>
+        </td>
 	</tr>
 	<tr>
 		<td></td>
 		<td></td>
 		<td></td>
 		<td></td>
-        <td><input type="button" value="Posalji" onclick="Posalji()"></td>
+        <td>
+            <asp:Button ID="btnUnesi" runat="server" OnClick="btnUnesi_Click" Text="Unesi" />
+        </td>
 	</tr>
 	</table><hr>
+        <asp:Label ID="lblLabela" runat="server"></asp:Label>
     </form>
 </body>
 </html>

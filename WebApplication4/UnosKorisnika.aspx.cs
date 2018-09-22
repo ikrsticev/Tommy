@@ -71,7 +71,7 @@ namespace WebApplication4
 
             if (unos)
             {
-                
+                //Unos novog korisnika
             }
             else
             {
