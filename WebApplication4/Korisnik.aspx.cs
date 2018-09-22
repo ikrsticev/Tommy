@@ -10,12 +10,6 @@ namespace WebApplication4
 {
     public partial class Korisnik : System.Web.UI.Page
     {
-        bool mesnica = false;
-        bool ribarnica = false;
-        bool gastro = false;
-
-        string PoslId = "";
-
         protected void Page_Load(object sender, EventArgs e)
         {
             string odjeli = "";
@@ -29,7 +23,7 @@ namespace WebApplication4
                     left outer join Poslovnica P on PU.PoslovnicaId = P.PoslovnicaId
                     WHERE U.UserId = @UserId";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@UserId", 220);
+                sqlCmd.Parameters.AddWithValue("@UserId", Session["ID"]);
                 Session["PoslId"] = sqlCmd.ExecuteScalar().ToString();
 
                 query = "SELECT OdjelId FROM Odjel_Poslovnica OP left outer join Poslovnica P on P.PoslovnicaId = OP.PoslovnicaId WHERE P.PoslovnicaId = " + Session["PoslId"];

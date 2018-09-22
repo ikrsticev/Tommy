@@ -15,26 +15,6 @@
 		window.onload = function(){
             
 		}
-        function CheckPoslovnica(){
-			if(document.getElementById("CBposlovnica").checked){
-				var x = document.getElementsByClassName("poslovnica");
-				var i;
-				for(i = 0; i < x.length; i++){
-					x[i].style.pointerEvents = "auto";
-					x[i].style.color = "#000000";
-					x[i].style.background = "#FFFFFF";
-				}
-			}
-			else{
-				var x = document.getElementsByClassName("poslovnica");
-				var i;
-				for(i = 0; i < x.length; i++){
-					x[i].style.pointerEvents = "none";
-					x[i].style.color = "#AAA";
-					x[i].style.background = "#F5F5F5";
-				}
-			}
-		}
 	</script>
 </head>
 <body>
