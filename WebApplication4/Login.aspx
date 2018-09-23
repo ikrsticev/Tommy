@@ -5,15 +5,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="tema.css"/>
     <style type="text/css">
         .auto-style1 {
             width: 100%;
+        }
+        .container{
+            height: 300px;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div class="container">
             <table class="auto-style1">
                 <tr>
                     <td>
@@ -39,10 +43,11 @@
                     </td>
                 </tr>
             </table>
-        </div>
-        <p>
+            <p>
                         <asp:Label ID="LabelLogin" runat="server"></asp:Label>
                     </p>
+        </div>
+        
     </form>
 </body>
 </html>

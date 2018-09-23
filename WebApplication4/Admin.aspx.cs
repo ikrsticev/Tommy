@@ -25,5 +25,11 @@ namespace WebApplication4
         {
             Response.Redirect("UnosKorisnika.aspx");
         }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
     }
 }

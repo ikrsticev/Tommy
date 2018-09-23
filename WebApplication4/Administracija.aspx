@@ -8,7 +8,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div style="float:left">
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" DataKeyNames="UserId" DataSourceID="SqlDataSource1">
                 <Columns>
                     <asp:CommandField ShowEditButton="True" />
@@ -43,6 +43,47 @@
             </asp:SqlDataSource>
             <br />
             <asp:Button ID="btnReturn" runat="server" OnClick="btnReturn_Click" Text="Povratak" />
+        </div>
+        <div style="margin-left:575px; padding-left: 25px; border-left-width: 1px; border-left-style: solid;">
+
+        
+        Promijeni odjele poslovnice:<br />
+        <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" DataTextField="Broj_poslovnice" DataValueField="Broj_poslovnice" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="true">
+        </asp:DropDownList>
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:Tommy_upgradeConnectionString %>" SelectCommand="SELECT [Broj poslovnice] AS Broj_poslovnice FROM [Poslovnica]"></asp:SqlDataSource>
+        <br />
+        <asp:CheckBox ID="cbxMesnica" runat="server" Text="Mesnica" />
+        <br />
+        <asp:CheckBox ID="cbxRibarnica" runat="server" Text="Ribarnica" />
+        <br />
+        <asp:CheckBox ID="cbxGastro" runat="server" Text="Gastro odjel" />
+        <br />
+        <asp:Button ID="Button1" runat="server" Text="Spremi promjene" OnClick="Button1_Click" />
+            </div>
+        <br /><hr /><br />
+        <div style="margin-left:575px; padding-left: 25px; border-left-width: 1px; border-left-style: solid;">
+
+            Promijeni poslovnice regionalnog menadžera:<br />
+            <asp:DropDownList ID="DropDownRM" runat="server" DataSourceID="SqlDataSource3" DataTextField="Username" DataValueField="Username" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged" AutoPostBack="true">
+            </asp:DropDownList>
+            <asp:DropDownList ID="DropDownPoslovnice" runat="server" DataSourceID="SqlDataSource4" DataTextField="Broj_poslovnice" DataValueField="Broj_poslovnice" AutoPostBack="true">
+            </asp:DropDownList>
+            <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:Tommy_upgradeConnectionString %>" SelectCommand="SELECT [Broj poslovnice] AS Broj_poslovnice FROM [Poslovnica]"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Tommy_upgradeConnectionString %>" SelectCommand="SELECT [Username] FROM [Users] WHERE ([RazinaId] = @RazinaId)">
+                <SelectParameters>
+                    <asp:Parameter DefaultValue="2" Name="RazinaId" Type="Int32" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+            <br />
+            <asp:ListBox ID="ListBox1" runat="server" SelectionMode="Multiple"></asp:ListBox>
+            <br />
+            <br />
+            <asp:Button ID="btnUkloniPoslovnicu" runat="server" Text="Ukloni poslovnicu iz liste" OnClick="btnUkloniPoslovnicu_Click" />
+
+            <asp:Button ID="btnDodajPoslovnicu" runat="server" OnClick="btnDodajPoslovnicu_Click" Text="Dodaj poslovnicu u listu" />
+            <br />
+            <asp:Button ID="btnUnesiPoslovnice" runat="server" Text="Unesi trenutne poslovnice" OnClick="btnUnesiPoslovnice_Click" />
+
         </div>
     </form>
 </body>

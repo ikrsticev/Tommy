@@ -17,7 +17,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <span id="spsp"></span>
+    <div>
     <h1>Poslovnica
         <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" DataTextField="Broj poslovnice" DataValueField="Broj poslovnice" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
             <asp:ListItem Enabled="False">Odaberite poslovnicu</asp:ListItem>
@@ -196,8 +196,9 @@
             <asp:Button ID="btnUnesi" runat="server" Text="Unesi" OnClick="btnUnesi_Click" />
         </td>
 	</tr>
-	</table><hr>
+	</table><hr/>
         <asp:Label ID="lblLabela" runat="server"></asp:Label>
+    </div>
     </form>
 </body>
 </html>

@@ -24,12 +24,6 @@ namespace WebApplication4
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "192.168.252.4", "sso.appizvjestaji", "Nak0nN0ciD0laziDan"))
-            //{
-            //    // validate the credentials
-            //    bool isValid = pc.ValidateCredentials("sso.apprezervacije", "Nak0nN0ciD0laziDan");
-            //    Label1.Text = isValid.ToString();
-            //}
 
             using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
             {
@@ -55,6 +49,7 @@ namespace WebApplication4
                 {
                     odjeli += dr["OdjelId"];
                 }
+                dr.Close();
 
                 if (odjeli != "")
                 {

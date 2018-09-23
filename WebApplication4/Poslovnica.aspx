@@ -19,7 +19,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <span id="spsp"></span>
+    <div>
     <h1>Poslovnica
         <asp:Label ID="LabelPoslovnica" runat="server"></asp:Label>
         </h1>
@@ -193,6 +193,7 @@
 	</tr>
 	</table><hr>
         <asp:Label ID="lblLabela" runat="server"></asp:Label>
+    </div>
     </form>
 </body>
 </html>

@@ -73,22 +73,12 @@
   <ItemGroup>
     <Content Include="Admin.aspx" />
     <Content Include="Administracija.aspx" />
-    <Content Include="DataSet1.xsc">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </Content>
     <Content Include="Poslovnica.aspx" />
     <Content Include="Korisnik.aspx" />
     <Content Include="Login.aspx" />
-    <None Include="DataSet1.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
-    </None>
-    <Content Include="DataSet1.xss">
-      <DependentUpon>DataSet1.xsd</DependentUpon>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Regionalni menadzer.aspx" />
+    <Content Include="tema.css" />
     <Content Include="UnosKorisnika.aspx" />
     <Content Include="web.config" />
     <None Include="web.Debug.config">
@@ -118,11 +108,6 @@
     </Compile>
     <Compile Include="Administracija.aspx.designer.cs">
       <DependentUpon>Administracija.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="Korisnik.aspx.cs">
       <DependentUpon>Korisnik.aspx</DependentUpon>

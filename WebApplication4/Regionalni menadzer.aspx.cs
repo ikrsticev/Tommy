@@ -36,6 +36,7 @@ namespace WebApplication4
                 {
                     odjeli += dr["OdjelId"];
                 }
+                dr.Close();
                 if (odjeli != "")
                 {
                     if (odjeli.Contains("1"))
@@ -73,8 +74,7 @@ namespace WebApplication4
                 lblLabela.Text += "Neispravan unos: poslovnica<br>";
                 unos = false;
             }
-
-            lblLabela.Text += mesnica.ToString();
+            
             if (mesnica)
             {
                 try
@@ -215,6 +215,7 @@ namespace WebApplication4
                 {
                     odjeli += dr["OdjelId"];
                 }
+                dr.Close();
                 if (odjeli != "")
                 {
                     if (odjeli.Contains("1"))
