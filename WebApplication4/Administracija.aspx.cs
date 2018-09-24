@@ -25,6 +25,9 @@ namespace WebApplication4
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblUnosRegPoslovnice.Text = "";
+            lblUnosOdjeli.Text = "";
+
             using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
             {
                 sqlCon.Open();
@@ -51,6 +54,9 @@ namespace WebApplication4
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            lblUnosRegPoslovnice.Text = "";
+            lblUnosOdjeli.Text = "";
+
             bool mesnica = cbxMesnica.Checked;
             bool ribarnica = cbxRibarnica.Checked;
             bool gastro = cbxGastro.Checked;
@@ -91,13 +97,15 @@ namespace WebApplication4
                     sqlCmd3.ExecuteScalar();
                 }
             }
+            lblUnosOdjeli.Text = "Unos uspješan";
         }
 
         protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListBox1.Items.Clear();
 
-           
+            lblUnosRegPoslovnice.Text = "";
+            lblUnosOdjeli.Text = "";
 
             using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
             {
@@ -128,15 +136,22 @@ WHERE  U.Username = '" + DropDownRM.SelectedItem + "'";
             {
                 ListBox1.Items.Remove(ListBox1.SelectedItem);
             }
+            lblUnosRegPoslovnice.Text = "";
+            lblUnosOdjeli.Text = "";
         }
 
         protected void btnDodajPoslovnicu_Click(object sender, EventArgs e)
         {
             ListBox1.Items.Add(DropDownPoslovnice.SelectedItem);
+            lblUnosRegPoslovnice.Text = "";
+            lblUnosOdjeli.Text = "";
         }
 
         protected void btnUnesiPoslovnice_Click(object sender, EventArgs e)
         {
+            lblUnosRegPoslovnice.Text = "";
+            lblUnosOdjeli.Text = "";
+
             using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
             {
                 sqlCon.Open();
@@ -160,6 +175,7 @@ WHERE  U.Username = '" + DropDownRM.SelectedItem + "'";
                     sqlCmd3.ExecuteScalar();
                 }
             }
+            lblUnosRegPoslovnice.Text = "Unos uspješan.";
         }
     }
 }

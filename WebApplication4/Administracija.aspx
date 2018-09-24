@@ -4,12 +4,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Administracija</title>
 </head>
 <body>
     <form id="form1" runat="server">
         <div style="float:left">
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" DataKeyNames="UserId" DataSourceID="SqlDataSource1">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="UserId" DataSourceID="SqlDataSource1" AllowPaging="True" ForeColor="#333333" GridLines="None" PageSize="25">
+                <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:CommandField ShowEditButton="True" />
                     <asp:BoundField DataField="UserId" HeaderText="UserId" InsertVisible="False" ReadOnly="True" SortExpression="UserId" />
@@ -20,15 +21,15 @@
                     <asp:CheckBoxField DataField="disabled" HeaderText="disabled" SortExpression="disabled" />
                     <asp:CheckBoxField DataField="write" HeaderText="write" SortExpression="write" />
                 </Columns>
-                <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
-                <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
-                <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
-                <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
-                <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#FFF1D4" />
-                <SortedAscendingHeaderStyle BackColor="#B95C30" />
-                <SortedDescendingCellStyle BackColor="#F1E5CE" />
-                <SortedDescendingHeaderStyle BackColor="#93451F" />
+                <FooterStyle BackColor="#990000" ForeColor="White" Font-Bold="True" />
+                <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+                <PagerStyle ForeColor="#333333" HorizontalAlign="Center" BackColor="#FFCC66" />
+                <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+                <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+                <SortedAscendingCellStyle BackColor="#FDF5AC" />
+                <SortedAscendingHeaderStyle BackColor="#4D0000" />
+                <SortedDescendingCellStyle BackColor="#FCF6C0" />
+                <SortedDescendingHeaderStyle BackColor="#820000" />
             </asp:GridView>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Tommy_upgradeConnectionString %>" DeleteCommand="DELETE FROM [Users] WHERE [UserId] = @UserId" InsertCommand="INSERT INTO [Users] ([Username], [Ime], [prezime], [RazinaId], [disabled], [write]) VALUES (@Username, @Ime, @prezime, @RazinaId, @disabled, @write)" SelectCommand="SELECT * FROM [Users]" UpdateCommand="UPDATE [Users] SET [Username] = @Username, [Ime] = @Ime, [prezime] = @prezime, [RazinaId] = @RazinaId, [disabled] = @disabled, [write] = @write WHERE [UserId] = @UserId">
                 <UpdateParameters>
@@ -59,6 +60,8 @@
         <asp:CheckBox ID="cbxGastro" runat="server" Text="Gastro odjel" />
         <br />
         <asp:Button ID="Button1" runat="server" Text="Spremi promjene" OnClick="Button1_Click" />
+            <br />
+            <asp:Label ID="lblUnosOdjeli" runat="server"></asp:Label>
             </div>
         <br /><hr /><br />
         <div style="margin-left:575px; padding-left: 25px; border-left-width: 1px; border-left-style: solid;">
@@ -82,7 +85,10 @@
 
             <asp:Button ID="btnDodajPoslovnicu" runat="server" OnClick="btnDodajPoslovnicu_Click" Text="Dodaj poslovnicu u listu" />
             <br />
-            <asp:Button ID="btnUnesiPoslovnice" runat="server" Text="Unesi trenutne poslovnice" OnClick="btnUnesiPoslovnice_Click" />
+            <asp:Button ID="btnUnesiPoslovnice" runat="server" Text="Spremi trenutne poslovnice" OnClick="btnUnesiPoslovnice_Click" />
+
+            <br />
+            <asp:Label ID="lblUnosRegPoslovnice" runat="server"></asp:Label>
 
         </div>
     </form>

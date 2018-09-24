@@ -94,6 +94,10 @@ namespace WebApplication4
 
                             }
                         }
+                        else
+                        {
+                            LabelLogin.Text = "Korisnik je u AD-u, ali ne u bazi.";
+                        }
                     }
                 }
                 else if(ADcon)

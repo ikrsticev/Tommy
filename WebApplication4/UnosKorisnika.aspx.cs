@@ -52,31 +52,18 @@ namespace WebApplication4
                 
                 try
                 {
-                    using (PrincipalContext pc = new PrincipalContext(ContextType.Domain,"192.168.252.4"))
+                    using (PrincipalContext pc = new PrincipalContext(ContextType.Domain,"192.168.252.4", "sso.appizvjestaji", "Nak0nN0ciD0laziDan"))
                     {
-                        using (var foundUser = UserPrincipal.FindByIdentity(pc, IdentityType.SamAccountName, txtUsername.Text.Trim()))
-                        {
-                            isValid =  foundUser != null;
-                        }
+                        UserPrincipal foundUser = UserPrincipal.FindByIdentity(pc, IdentityType.UserPrincipalName, txtUsername.Text.Trim());
+                        
+                        isValid =  foundUser != null;
+                        
                     }
                 }
                 catch
                 {
-                    try
-                    {
-                        using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "192.168.252.4"))
-                        {
-                            using (var foundUser = UserPrincipal.FindByIdentity(pc, IdentityType.Name, txtUsername.Text.Trim()))
-                            {
-                                isValid = foundUser != null;
-                            }
-                        }
-                    }
-                    catch
-                    {
-                        lblLabela.Text += "Ne može se pristupiti Active Directoryu ili korisnik ne postoji. ";
-                        unos = false;
-                    }
+                    lblLabela.Text += "Ne može se pristupiti Active Directoryu ili korisnik ne postoji. ";
+                    unos = false;
                 }
 
             }
@@ -216,6 +203,7 @@ namespace WebApplication4
         {
             if (rdb1.Checked)
             {
+                DropDownList1.Enabled = false;
                 ListBox1.Items.Clear();
                 ListBox1.Visible = false;
                 btnDodajPoslovnicu.Enabled = false;
@@ -231,6 +219,7 @@ namespace WebApplication4
         {
             if (rdb3.Checked)
             {
+                DropDownList1.Enabled = false;
                 ListBox1.Items.Clear();
                 ListBox1.Visible = false;
                 btnDodajPoslovnicu.Enabled = false;
@@ -247,6 +236,7 @@ namespace WebApplication4
             if (rdb2.Checked)
             {
                 btnDodajPoslovnicu.Enabled = true;
+                DropDownList1.Enabled = true;
 
                 cbxMesnica.Visible = false;
                 cbxRibarnica.Visible = false;
@@ -261,6 +251,7 @@ namespace WebApplication4
             {
                 btnDodajPoslovnicu.Enabled = true;
                 ListBox1.Items.Clear();
+                DropDownList1.Enabled = true;
 
                 cbxMesnica.Visible = false;
                 cbxRibarnica.Visible = false;

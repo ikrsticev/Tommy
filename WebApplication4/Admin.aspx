@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Admin</title>
     <link rel="stylesheet" type="text/css" href="tema.css"/>
     <style>
         div{

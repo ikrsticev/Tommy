@@ -42,6 +42,7 @@ namespace WebApplication4
                 sqlCmd2.Parameters.AddWithValue("@UserId", Session["ID"]);
                 PoslId = sqlCmd2.ExecuteScalar().ToString();
 
+
                 query = "SELECT OdjelId FROM Odjel_Poslovnica OP left outer join Poslovnica P on P.PoslovnicaId = OP.PoslovnicaId WHERE P.PoslovnicaId = " + PoslId;
                 SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
                 SqlDataReader dr = sqlCmd3.ExecuteReader();
