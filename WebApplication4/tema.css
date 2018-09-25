@@ -5,16 +5,18 @@ body {
     font-size: 120%;
     padding: 0;
     margin: 0;
+    color: red;
 }
 
-#Button1 {
-    width: 173px;
-    height: 30px;
+.dropDown {
+    font-family: Courier New;
+}
+
+.botun {
     font-family: Courier New;
     color: white;
     background: #E90000;
-    border-color:black;
-    border:2px;
+    height: 28px;
 }
 
 .container {
@@ -29,4 +31,10 @@ body {
     padding-left: 40px;
     padding-right: 40px;
     box-shadow: #444;
+}
+
+.naslov {
+    font-size: 150%;
+    font-style: oblique;
+    color: black;
 }

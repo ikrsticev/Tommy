@@ -15,7 +15,11 @@ namespace WebApplication4
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if(Session["ID"] == null || Session["Razina"].ToString() != 1.ToString())
+            {
+                Session.Clear();
+                Response.Redirect("Login.aspx.cs");
+            }
         }
 
         protected void btnReturn_Click(object sender, EventArgs e)
@@ -70,31 +74,44 @@ namespace WebApplication4
                 SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
                 PoslId = sqlCmd4.ExecuteScalar().ToString();
 
-                query = "DELETE FROM Odjel_Poslovnica WHERE PoslovnicaId = " + PoslId;
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.ExecuteScalar();
-
-                query = "INSERT INTO Odjel_Poslovnica VALUES(4," + PoslId + ")";
-                SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
-                sqlCmd2.ExecuteScalar();
-
-                if (mesnica)
+                bool q = true;
+                //DELETE query može biti neuspješan ako postoji report s tom poslovnicom
+                try
                 {
-                    query = "INSERT INTO Odjel_Poslovnica VALUES(1," + PoslId + ")";
-                    SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
-                    sqlCmd3.ExecuteScalar();
+                    query = "DELETE FROM Odjel_Poslovnica WHERE PoslovnicaId = " + PoslId;
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.ExecuteScalar();
                 }
-                if (ribarnica)
+                catch
                 {
-                    query = "INSERT INTO Odjel_Poslovnica VALUES(2," + PoslId + ")";
-                    SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
-                    sqlCmd3.ExecuteScalar();
+                    lblUnosOdjeli.Text = "Neuspješan unos. Ta poslovnica ima unesene reportove koji moraju biti izbrisani da bi se odjeli mogli mijenjati.";
+                    q = false;
                 }
-                if (gastro)
+
+                if (q)
                 {
-                    query = "INSERT INTO Odjel_Poslovnica VALUES(3," + PoslId + ")";
-                    SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
-                    sqlCmd3.ExecuteScalar();
+                    query = "INSERT INTO Odjel_Poslovnica VALUES(4," + PoslId + ")";
+                    SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+                    sqlCmd2.ExecuteScalar();
+
+                    if (mesnica)
+                    {
+                        query = "INSERT INTO Odjel_Poslovnica VALUES(1," + PoslId + ")";
+                        SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                        sqlCmd3.ExecuteScalar();
+                    }
+                    if (ribarnica)
+                    {
+                        query = "INSERT INTO Odjel_Poslovnica VALUES(2," + PoslId + ")";
+                        SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                        sqlCmd3.ExecuteScalar();
+                    }
+                    if (gastro)
+                    {
+                        query = "INSERT INTO Odjel_Poslovnica VALUES(3," + PoslId + ")";
+                        SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                        sqlCmd3.ExecuteScalar();
+                    }
                 }
             }
             lblUnosOdjeli.Text = "Unos uspješan";

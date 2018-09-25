@@ -12,11 +12,12 @@
         }
     </style>
 </head>
-<body>
+<body style="color:black";>
     <form id="form1" runat="server">
         <div class ="container">
         <div>
-            
+            <span class="naslov">Unos korisnika</span>
+            <br /><hr /><br />
             <table class="auto-style1">
                 <tr>
                     <td>Username</td>
@@ -46,15 +47,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>disabled</td>
+                    <td>Pisanje</td>
                     <td>
-                        <asp:CheckBox ID="cbxDisabled" runat="server" Text="Disabled" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>write</td>
-                    <td>
-                        <asp:CheckBox ID="cbxWrite" runat="server" Checked="True" Text="Write" />
+                        <asp:CheckBox ID="cbxWrite" runat="server" Checked="True" />
                     </td>
                 </tr>
             </table>
@@ -65,7 +60,7 @@
         </asp:DropDownList>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Tommy_upgradeConnectionString %>" SelectCommand="SELECT [Broj poslovnice] AS Broj_poslovnice FROM [Poslovnica]"></asp:SqlDataSource>
 &nbsp;
-        <asp:Button ID="btnDodajPoslovnicu" runat="server" OnClick="btnDodajPoslovnicu_Click" Text="Dodaj poslovnicu" />
+        <asp:Button ID="btnDodajPoslovnicu" CssClass="botun" runat="server" OnClick="btnDodajPoslovnicu_Click" Text="Dodaj poslovnicu" />
             <br />
         <asp:ListBox ID="ListBox1" runat="server" Visible="False"></asp:ListBox>
         <br />
@@ -80,10 +75,10 @@
         <br />
         </div>
         <div>
-        <asp:Button ID="btnUnos" runat="server" OnClick="btnUnos_Click" Text="Unesi novog korisnika" />
+        <asp:Button ID="btnUnos" CssClass="botun" runat="server" OnClick="btnUnos_Click" Text="Unesi novog korisnika" />
             <br />
             <br />
-        <asp:Button ID="btnReturn" runat="server" OnClick="btnReturn_Click" Text="Povratak" />
+        <asp:Button ID="btnReturn" CssClass="botun" runat="server" OnClick="btnReturn_Click" Text="Povratak" />
         <br />
         <br />
         <asp:Label ID="lblLabela" runat="server"></asp:Label>

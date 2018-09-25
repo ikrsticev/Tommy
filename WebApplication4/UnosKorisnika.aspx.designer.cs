@@ -85,15 +85,6 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.RadioButton rdb4;
         
         /// <summary>
-        /// cbxDisabled control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbxDisabled;
-        
-        /// <summary>
         /// cbxWrite control.
         /// </summary>
         /// <remarks>

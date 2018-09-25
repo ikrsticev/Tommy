@@ -13,7 +13,11 @@ namespace WebApplication4
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (Session["ID"] == null || Session["Razina"].ToString() != 2.ToString())
+            {
+                Session.Clear();
+                Response.Redirect("Login.aspx.cs");
+            }
         }
 
         protected void btnUnesi_Click(object sender, EventArgs e)

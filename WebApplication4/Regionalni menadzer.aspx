@@ -4,8 +4,16 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <link rel="stylesheet" type="text/css" href="tema.css"/>
     <title>Regionalni menadžer</title>
     <style>
+        th{
+            background-color: #E90000;
+        }
+        body{
+             background-color: white;
+             color: black;
+        }
 	</style>
 	<script type="text/javascript">
 
@@ -31,11 +39,11 @@
         <hr>
 	<table>
 	<tr>
-		<td>Podatci:</td>
-		<td>Mesnica</td>
-		<td>Ribarnica</td>
-		<td>Gastro odijel</td>
-		<td>Poslovnica</td>
+		<th>Podatci:</th>
+		<th>Mesnica</th>
+		<th>Ribarnica</th>
+		<th>Gastro odijel</th>
+		<th>Poslovnica</th>
 	</tr>
 	<tr>
 		<td>Ukupan broj radnika:</td>
@@ -193,7 +201,7 @@
 		<td></td>
 		<td></td>
         <td>
-            <asp:Button ID="btnUnesi" runat="server" Text="Unesi" OnClick="btnUnesi_Click" />
+            <asp:Button ID="btnUnesi" CssClass="botun" runat="server" Text="Unesi" OnClick="btnUnesi_Click" />
         </td>
 	</tr>
 	</table><hr/>

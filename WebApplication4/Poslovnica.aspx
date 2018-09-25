@@ -9,6 +9,9 @@
 	    .auto-style1 {
             height: 26px;
         }
+        th{
+            background-color:#E90000;
+        }
 	</style>
 	<script type="text/javascript">
 
@@ -26,11 +29,11 @@
         <hr>
 	<table>
 	<tr>
-		<td>Podatci:</td>
-		<td>Mesnica</td>
-		<td>Ribarnica</td>
-		<td>Gastro odijel</td>
-		<td>Poslovnica</td>
+		<th>Podatci:</th>
+		<th>Mesnica</th>
+		<th>Ribarnica</th>
+		<th>Gastro odijel</th>
+		<th>Poslovnica</th>
 	</tr>
 	<tr>
 		<td>Ukupan broj radnika:</td>
@@ -188,7 +191,7 @@
 		<td></td>
 		<td></td>
         <td>
-            <asp:Button ID="btnUnesi" runat="server" OnClick="btnUnesi_Click" Text="Unesi" />
+            <asp:Button ID="btnUnesi" CssClass="botun" runat="server" OnClick="btnUnesi_Click" Text="Unesi" />
         </td>
 	</tr>
 	</table><hr>

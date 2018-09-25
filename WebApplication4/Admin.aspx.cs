@@ -12,6 +12,12 @@ namespace WebApplication4
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["ID"] == null || Session["Razina"].ToString() != 1.ToString())
+            {
+                Session.Clear();
+                Response.Redirect("Login.aspx.cs");
+            }
+
             lblUsername.Text = Session["Username"].ToString();
             lblDate.Text = DateTime.Today.ToString().Split(' ')[0];
         }

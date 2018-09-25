@@ -16,7 +16,11 @@ namespace WebApplication4
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["ID"] == null || Session["Razina"].ToString() != 1.ToString())
+            {
+                Session.Clear();
+                Response.Redirect("Login.aspx.cs");
+            }
         }
 
         protected void btnUnos_Click(object sender, EventArgs e)
@@ -99,8 +103,7 @@ namespace WebApplication4
                     sqlCon.Open();
 
                     string query = @"INSERT INTO Users VALUES('" + txtUsername.Text + "','" +
-                        txtIme.Text + "','" + txtPrezime.Text + "','" + razina + "','" + cbxDisabled.Checked
-                        + "','" + cbxWrite.Checked + "')";
+                        txtIme.Text + "','" + txtPrezime.Text + "','" + razina + "','false','" + cbxWrite.Checked + "')";
                     SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                     sqlCmd.ExecuteScalar();
 

@@ -24,6 +24,11 @@ namespace WebApplication4
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["ID"] == null || Session["Razina"].ToString() != 3.ToString())
+            {
+                Session.Clear();
+                Response.Redirect("Login.aspx.cs");
+            }
 
             using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
             {

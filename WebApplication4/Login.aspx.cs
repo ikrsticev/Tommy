@@ -76,8 +76,8 @@ namespace WebApplication4
                             SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
                             sqlCmd2.Parameters.AddWithValue("@username", Session["username"]);
 
-                            int Razina = int.Parse(sqlCmd2.ExecuteScalar().ToString());
-                            switch (Razina)
+                            Session["Razina"] = int.Parse(sqlCmd2.ExecuteScalar().ToString());
+                            switch (Session["Razina"])
                             {
                                 case 1:
                                     Response.Redirect("Admin.aspx");

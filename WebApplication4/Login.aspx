@@ -13,6 +13,9 @@
         #logo{
             width:40%;
         }
+        #Button1 {
+            width: 173px;
+        }
     </style>
 </head>
 <body>
@@ -25,11 +28,11 @@
             Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
             &nbsp;&nbsp;&nbsp;<br />
             <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Log in" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="Button1" CssClass="botun" runat="server" OnClick="Button1_Click" Text="Log in" />
                     
             
             <br />
-                    
+            <br />
             
             <asp:Label ID="LabelLogin" runat="server"></asp:Label>
             

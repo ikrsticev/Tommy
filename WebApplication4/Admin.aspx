@@ -13,6 +13,15 @@
             margin-left: auto;
 	        margin-right: auto;
         }
+        #btnAdministracija{
+            width: 35%;
+        }
+        #btnUnos{
+            width: 25%;
+        }
+        #btnLogout{
+            width: 15%;
+        }
 	</style>
 	<script type="text/javascript">
 
@@ -24,24 +33,26 @@
 <body>
     <form id="form1" runat="server">
     <div class="container">
-    <span>User:<asp:Label ID="lblUsername" runat="server" Text="Label"></asp:Label>
+    <span class="naslov">Admin</span>
+        <br /><hr /><br />
+    <span style="color:black;"><b>User:<asp:Label ID="lblUsername" runat="server" Text="Label"></asp:Label>
         <br />
-        <asp:Label ID="lblDate" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="lblDate" runat="server" Text="Label"></asp:Label></b>
 &nbsp; 
         <br />
         <br />
         </span>
     
 
-        <asp:Button ID="btnAdministracija" runat="server" Text="Pregled i administracija korisnika" OnClick="btnAdministracija_Click" />
+        <asp:Button ID="btnAdministracija" CssClass="botun" runat="server" Text="Pregled i administracija korisnika" OnClick="btnAdministracija_Click" />
 
         <br />
         <br />
-        <asp:Button ID="btnUnos" runat="server" OnClick="btnUnos_Click" Text="Unos novog korisnika" />
+        &nbsp;<asp:Button ID="btnUnos" CssClass="botun" runat="server" OnClick="btnUnos_Click" Text="Unos novog korisnika" />
 
         <br />
         <br />
-        <asp:Button ID="btnLogout" runat="server" OnClick="btnLogout_Click" Text="Logout" />
+        <asp:Button ID="btnLogout" CssClass="botun" runat="server" OnClick="btnLogout_Click" Text="Logout" />
 
     </div>
     </form>

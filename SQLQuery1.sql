@@ -10,5 +10,7 @@ SELECT * FROM Poslovnica WHERE [Broj poslovnice] = 'tommy100'
 
 SELECT * FROM Report
 
+truncate table Report
+
 
 
