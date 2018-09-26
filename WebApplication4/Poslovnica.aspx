@@ -12,6 +12,12 @@
         th{
             background-color:#E90000;
         }
+        .botun {
+            font-family: Courier New;
+            color: white;
+            background: #E90000;
+            height: 28px;
+        }
 	</style>
 	<script type="text/javascript">
 
@@ -26,7 +32,7 @@
     <h1>Poslovnica
         <asp:Label ID="LabelPoslovnica" runat="server"></asp:Label>
         </h1>
-        <hr>
+        <hr/>
 	<table>
 	<tr>
 		<th>Podatci:</th>
@@ -195,6 +201,10 @@
         </td>
 	</tr>
 	</table><hr>
+        <br />
+        <asp:Button ID="btnLogout" CssClass="botun" runat="server" Text="Logout" OnClick="btnLogout_Click" />
+        <br />
+        <br />
         <asp:Label ID="lblLabela" runat="server"></asp:Label>
     </div>
     </form>

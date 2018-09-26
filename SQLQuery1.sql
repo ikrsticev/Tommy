@@ -1,5 +1,6 @@
 ﻿SELECT * FROM Users
-SELECT * FROM Poslovnica_Users WHERE UserId = 234
+SELECT * FROM Poslovnica
+INSERT INTO Poslovnica_Users VALUES (234,202)
 
 SELECT [Broj poslovnice] FROM Poslovnica P 
 left outer join Poslovnica_Users PU on P.PoslovnicaId = PU.PoslovnicaId

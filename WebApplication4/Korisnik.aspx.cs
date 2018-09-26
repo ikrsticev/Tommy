@@ -14,7 +14,6 @@ namespace WebApplication4
         {
             if (Session["ID"] == null || Session["Razina"].ToString() != 4.ToString())
             {
-                Session.Clear();
                 Response.Redirect("Login.aspx.cs");
             }
 
