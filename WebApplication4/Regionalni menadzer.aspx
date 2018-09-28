@@ -205,6 +205,10 @@
         </td>
 	</tr>
 	</table><hr/>
+        <br />
+        <asp:Button ID="Button1" runat="server" CssClass="botun" OnClick="Button1_Click" Text="Odjava" />
+        <br />
+        <br />
         <asp:Label ID="lblLabela" runat="server"></asp:Label>
     </div>
     </form>

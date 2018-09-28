@@ -202,7 +202,7 @@
 	</tr>
 	</table><hr>
         <br />
-        <asp:Button ID="btnLogout" CssClass="botun" runat="server" Text="Logout" OnClick="btnLogout_Click" />
+        <asp:Button ID="btnLogout" CssClass="botun" runat="server" Text="Odjava" OnClick="btnLogout_Click" />
         <br />
         <br />
         <asp:Label ID="lblLabela" runat="server"></asp:Label>

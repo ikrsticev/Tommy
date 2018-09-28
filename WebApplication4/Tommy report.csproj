@@ -73,6 +73,7 @@
   <ItemGroup>
     <Content Include="Admin.aspx" />
     <Content Include="Administracija.aspx" />
+    <Content Include="Login info.aspx" />
     <Content Include="Poslovnica.aspx" />
     <Content Include="Korisnik.aspx" />
     <Content Include="Login.aspx" />
@@ -115,6 +116,13 @@
     </Compile>
     <Compile Include="Korisnik.aspx.designer.cs">
       <DependentUpon>Korisnik.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login info.aspx.cs">
+      <DependentUpon>Login info.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login info.aspx.designer.cs">
+      <DependentUpon>Login info.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Poslovnica.aspx.cs">

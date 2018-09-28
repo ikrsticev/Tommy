@@ -38,16 +38,28 @@ namespace WebApplication4
                 {
                     odjeli += dr["OdjelId"];
                 }
+                dr.Close();
+
+                query = "SELECT [Broj Poslovnice] FROM Poslovnica WHERE PoslovnicaId = @PoslovnicaId";
+                SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                sqlCmd3.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
+                lblPoslovnica.Text = sqlCmd3.ExecuteScalar().ToString();
             }
             
 
             if(odjeli != "")
             {
-                if (!odjeli.Contains("1")) { GridViewMesnica.Visible = false; }
-                if (!odjeli.Contains("2")) { GridViewRibarnica.Visible = false; }
-                if (!odjeli.Contains("3")) { GridViewGastro.Visible = false; }
+                if (!odjeli.Contains("1")) { GridViewMesnica.Visible = false; lblMesnica.Visible = false; }
+                if (!odjeli.Contains("2")) { GridViewRibarnica.Visible = false; lblRibarnica.Visible = false; }
+                if (!odjeli.Contains("3")) { GridViewGastro.Visible = false; lblGastro.Visible = false; }
             }
             else { lblLabela.Text = "Došlo je do greške pri učitavanju podataka iz baze."; }
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
         }
     }
 }

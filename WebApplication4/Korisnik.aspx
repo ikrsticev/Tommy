@@ -5,10 +5,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Korisnik</title>
+    <style>
+        .botun {
+    font-family: Courier New;
+    color: white;
+    background: #E90000;
+    height: 28px;
+}
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
+            <b>Poslovnica:<asp:Label ID="lblPoslovnica" runat="server"></asp:Label></b>
+            <br />
             <asp:GridView ID="GridViewPoslovnica" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource1" AllowPaging="True" PageSize="1" Font-Names="Courier New">
                 <Columns>
                     <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
@@ -34,6 +44,8 @@
                     <asp:SessionParameter Name="PoslovnicaId" SessionField="PoslId" Type="Int32" />
                 </SelectParameters>
             </asp:SqlDataSource>
+            <br />
+            <b><asp:Label ID="lblMesnica" runat="server" Text="Mesnica"></asp:Label></b>
         </div>
         <asp:GridView ID="GridViewMesnica" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource2" PageSize="1" Font-Names="Courier New">
             <Columns>
@@ -68,6 +80,8 @@ Promet, Ucinkovitost as Učinkovitost, Datum, OdjelId as Odjel, PoslovnicaId
                 <asp:SessionParameter Name="PoslovnicaId" SessionField="PoslId" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
+        <br />
+        <b><asp:Label ID="lblRibarnica" runat="server" Text="Ribarnica"></asp:Label></b>
         <asp:GridView ID="GridViewRibarnica" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource3" PageSize="1" Font-Names="Courier New">
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
@@ -101,6 +115,8 @@ Promet, Ucinkovitost as Učinkovitost, Datum, OdjelId as Odjel, PoslovnicaId
                 <asp:SessionParameter Name="PoslovnicaId" SessionField="PoslId" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
+        <br />
+        <b><asp:Label ID="lblGastro" runat="server" Text="Gastro odijel"></asp:Label></b>
         <asp:GridView ID="GridViewGastro" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource4" PageSize="1" Font-Names="Courier New">
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
@@ -134,6 +150,9 @@ Promet, Ucinkovitost as Učinkovitost, Datum, OdjelId as Odjel, PoslovnicaId
                 <asp:SessionParameter Name="PoslovnicaId" SessionField="PoslId" Type="Int32" />
             </SelectParameters>
         </asp:SqlDataSource>
+        <br />
+        <asp:Button ID="Button1" runat="server" CssClass="botun" Text="Odjava" OnClick="Button1_Click" />
+        <br />
         <asp:Label ID="lblLabela" runat="server"></asp:Label>
     </form>
 </body>

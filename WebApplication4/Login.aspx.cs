@@ -70,6 +70,11 @@ namespace WebApplication4
                             sqlCmd3.Parameters.AddWithValue("@username", Session["username"]);
                             Session["ID"] = int.Parse(sqlCmd3.ExecuteScalar().ToString());
 
+                            query = "INSERT INTO Logins VALUES (CURRENT_TIMESTAMP, @UserId)";
+                            SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
+                            sqlCmd4.Parameters.AddWithValue("@UserId", Session["ID"]);
+                            sqlCmd4.ExecuteScalar();
+
                             //Uzimamo Razinu korisnika iz baze koja će 
                             //odrediti stranicu na koju se korisnik preusmjerava
                             query = "SELECT RazinaId FROM Users WHERE username=@username";

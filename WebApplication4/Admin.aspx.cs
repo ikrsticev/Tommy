@@ -37,5 +37,10 @@ namespace WebApplication4
             Session.Clear();
             Response.Redirect("Login.aspx");
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login info.aspx");
+        }
     }
 }

@@ -52,6 +52,10 @@
 
         <br />
         <br />
+        &nbsp;<asp:Button ID="Button1" CssClass="botun" runat="server" OnClick="Button1_Click" Text="Pregled logina" />
+
+        <br />
+        <br />
         <asp:Button ID="btnLogout" CssClass="botun" runat="server" OnClick="btnLogout_Click" Text="Logout" />
 
     </div>

@@ -307,17 +307,26 @@ namespace WebApplication4
                 {
                     sqlCon.Open();
 
-                    string query = "DELETE FROM Report WHERE LEFT(Datum,11) = LEFT(CURRENT_TIMESTAMP,11) and PoslovnicaId = @PoslovnicaId";
+                    //Provjeravamo je li ima već unešenih podataka za danas
+                    //Ako nema, samo unosimo nove
+                    //Ako ima, updateamo stare
+
+                    bool odjeliRows = false;
+                    string query = "SELECT * FROM Report WHERE LEFT(Datum,11) = LEFT(CURRENT_TIMESTAMP,11) and PoslovnicaId = @PoslovnicaId";
                     SqlCommand sqlCmd5 = new SqlCommand(query, sqlCon);
                     sqlCmd5.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
-                    sqlCmd5.ExecuteScalar();
-
-                    query = "SELECT OdjelId FROM Odjel_Poslovnica OP left outer join Poslovnica P on P.PoslovnicaId = OP.PoslovnicaId WHERE P.PoslovnicaId = " + Session["PoslId"];
+                    SqlDataReader dr = sqlCmd5.ExecuteReader();
+                    if (dr.HasRows) { odjeliRows = true; }
+                    dr.Close();
+                    
+                    query = "SELECT OdjelId FROM Odjel_Poslovnica OP left outer join Poslovnica P on P.PoslovnicaId = OP.PoslovnicaId WHERE P.PoslovnicaId = @PoslovnicaId";
                     SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
+                    sqlCmd4.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
                     SqlDataReader dr2 = sqlCmd4.ExecuteReader();
                     while (dr2.Read())
                     {
                         odjeli += dr2["OdjelId"];
+                        
                     }
                     dr2.Close();
 
@@ -337,75 +346,179 @@ namespace WebApplication4
                         }
                     }
 
-                    query = @"INSERT INTO Report
+                    if (odjeliRows)
+                    {
+                        query = @"UPDATE Report
+                                SET Ukupan_broj_radnika = @PoslovnicaUBR, Broj_radnika_koji_su_radili = @PoslovnicaBRKR,
+                                Broj_radnika_na_slobodnim_danima = @PoslovnicaBRSD, Broj_radnika_na_godisnjem_odmoru = @PoslovnicaBRGO,
+                                Broj_radnika_na_kratkotrajnom_bolovanju = @PoslovnicaBRKB, Broj_radnika_na_dugotrajnom_bolovanju = @PoslovnicaBRDB,
+                                Broj_studenata = @PoslovnicaBS, Utroseni_radni_sati = @PoslovnicaSati, 
+                                Promet = @PoslovnicaPromet, Ucinkovitost = @PoslovnicaUcinkovitost, Datum = CURRENT_TIMESTAMP
+                                WHERE OdjelId = 4 and PoslovnicaId = @PoslovnicaId and LEFT(Datum,11) = LEFT(CURRENT_TIMESTAMP,11)";
+                        SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaUBR", Convert.ToDouble(txtPoslovnicaUBR.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBRKR", Convert.ToDouble(txtPoslovnicaBRKR.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBRSD", Convert.ToDouble(txtPoslovnicaBRSD.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBRGO", Convert.ToDouble(txtPoslovnicaBRGO.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBRKB", Convert.ToDouble(txtPoslovnicaBRKB.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBRDB", Convert.ToDouble(txtPoslovnicaBRDB.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBS", Convert.ToDouble(txtPoslovnicaBS.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaSati", Convert.ToDouble(txtPoslovnicaSati.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaPromet", Convert.ToDouble(txtPoslovnicaPromet.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaUcinkovitost", Convert.ToDouble(txtPoslovnicaUcinkovitost.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
+                        sqlCmd.ExecuteScalar();
+                    }
+                    else
+                    {
+                        query = @"INSERT INTO Report
                                 VALUES(@PoslovnicaUBR, @PoslovnicaBRKR, @PoslovnicaBRSD, @PoslovnicaBRGO, @PoslovnicaBRKB, @PoslovnicaBRDB, @PoslovnicaBS, @PoslovnicaSati, @PoslovnicaPromet, @PoslovnicaUcinkovitost, CURRENT_TIMESTAMP, 4, @PoslovnicaId)";
-                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaUBR", Convert.ToDouble(txtPoslovnicaUBR.Text));
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaBRKR", Convert.ToDouble(txtPoslovnicaBRKR.Text));
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaBRSD", Convert.ToDouble(txtPoslovnicaBRSD.Text));
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaBRGO", Convert.ToDouble(txtPoslovnicaBRGO.Text));
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaBRKB", Convert.ToDouble(txtPoslovnicaBRKB.Text));
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaBRDB", Convert.ToDouble(txtPoslovnicaBRDB.Text));
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaBS", Convert.ToDouble(txtPoslovnicaBS.Text));
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaSati", Convert.ToDouble(txtPoslovnicaSati.Text));
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaPromet", Convert.ToDouble(txtPoslovnicaPromet.Text));
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaUcinkovitost", Convert.ToDouble(txtPoslovnicaUcinkovitost.Text));
-                    sqlCmd.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
-                    sqlCmd.ExecuteScalar();
+                        SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaUBR", Convert.ToDouble(txtPoslovnicaUBR.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBRKR", Convert.ToDouble(txtPoslovnicaBRKR.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBRSD", Convert.ToDouble(txtPoslovnicaBRSD.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBRGO", Convert.ToDouble(txtPoslovnicaBRGO.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBRKB", Convert.ToDouble(txtPoslovnicaBRKB.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBRDB", Convert.ToDouble(txtPoslovnicaBRDB.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaBS", Convert.ToDouble(txtPoslovnicaBS.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaSati", Convert.ToDouble(txtPoslovnicaSati.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaPromet", Convert.ToDouble(txtPoslovnicaPromet.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaUcinkovitost", Convert.ToDouble(txtPoslovnicaUcinkovitost.Text));
+                        sqlCmd.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
+                        sqlCmd.ExecuteScalar();
+                    }
                     
                     if(mesnica)
                     {
-                        query = @"INSERT INTO Report
+                        if (odjeliRows)
+                        {
+                            query = @"UPDATE Report
+                                SET Ukupan_broj_radnika = @MesnicaUBR, Broj_radnika_koji_su_radili = @MesnicaBRKR,
+                                Broj_radnika_na_slobodnim_danima = @MesnicaBRSD, Broj_radnika_na_godisnjem_odmoru = @MesnicaBRGO,
+                                Broj_radnika_na_kratkotrajnom_bolovanju = @MesnicaBRKB, Broj_radnika_na_dugotrajnom_bolovanju = @MesnicaBRDB,
+                                Broj_studenata = @MesnicaBS, Utroseni_radni_sati = @MesnicaSati, 
+                                Promet = @MesnicaPromet, Ucinkovitost = @MesnicaUcinkovitost, Datum = CURRENT_TIMESTAMP
+                                WHERE OdjelId = 1 and PoslovnicaId = @PoslovnicaId and LEFT(Datum,11) = LEFT(CURRENT_TIMESTAMP,11)";
+                            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                            sqlCmd.Parameters.AddWithValue("@MesnicaUBR", Convert.ToDouble(txtMesnicaUBR.Text));
+                            sqlCmd.Parameters.AddWithValue("@MesnicaBRKR", Convert.ToDouble(txtMesnicaBRKR.Text));
+                            sqlCmd.Parameters.AddWithValue("@MesnicaBRSD", Convert.ToDouble(txtMesnicaBRSD.Text));
+                            sqlCmd.Parameters.AddWithValue("@MesnicaBRGO", Convert.ToDouble(txtMesnicaBRGO.Text));
+                            sqlCmd.Parameters.AddWithValue("@MesnicaBRKB", Convert.ToDouble(txtMesnicaBRKB.Text));
+                            sqlCmd.Parameters.AddWithValue("@MesnicaBRDB", Convert.ToDouble(txtMesnicaBRDB.Text));
+                            sqlCmd.Parameters.AddWithValue("@MesnicaBS", Convert.ToDouble(txtMesnicaBS.Text));
+                            sqlCmd.Parameters.AddWithValue("@MesnicaSati", Convert.ToDouble(txtMesnicaSati.Text));
+                            sqlCmd.Parameters.AddWithValue("@MesnicaPromet", Convert.ToDouble(txtMesnicaPromet.Text));
+                            sqlCmd.Parameters.AddWithValue("@MesnicaUcinkovitost", Convert.ToDouble(txtMesnicaUcinkovitost.Text));
+                            sqlCmd.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
+                            sqlCmd.ExecuteScalar();
+                        }
+                        else
+                        {
+                            query = @"INSERT INTO Report
                                 VALUES(@MesnicaUBR, @MesnicaBRKR, @MesnicaBRSD, @MesnicaBRGO, @MesnicaBRKB, @MesnicaBRDB, @MesnicaBS, @MesnicaSati, @MesnicaPromet, @MesnicaUcinkovitost, CURRENT_TIMESTAMP, 1, @PoslovnicaId)";
-                        SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
-                        sqlCmd2.Parameters.AddWithValue("@MesnicaUBR", Convert.ToDouble(txtMesnicaUBR.Text));
-                        sqlCmd2.Parameters.AddWithValue("@MesnicaBRKR", Convert.ToDouble(txtMesnicaBRKR.Text));
-                        sqlCmd2.Parameters.AddWithValue("@MesnicaBRSD", Convert.ToDouble(txtMesnicaBRSD.Text));
-                        sqlCmd2.Parameters.AddWithValue("@MesnicaBRGO", Convert.ToDouble(txtMesnicaBRGO.Text));
-                        sqlCmd2.Parameters.AddWithValue("@MesnicaBRKB", Convert.ToDouble(txtMesnicaBRKB.Text));
-                        sqlCmd2.Parameters.AddWithValue("@MesnicaBRDB", Convert.ToDouble(txtMesnicaBRDB.Text));
-                        sqlCmd2.Parameters.AddWithValue("@MesnicaBS", Convert.ToDouble(txtMesnicaBS.Text));
-                        sqlCmd2.Parameters.AddWithValue("@MesnicaSati", Convert.ToDouble(txtMesnicaSati.Text));
-                        sqlCmd2.Parameters.AddWithValue("@MesnicaPromet", Convert.ToDouble(txtMesnicaPromet.Text));
-                        sqlCmd2.Parameters.AddWithValue("@MesnicaUcinkovitost", Convert.ToDouble(txtMesnicaUcinkovitost.Text));
-                        sqlCmd2.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
-                        sqlCmd2.ExecuteScalar();
+                            SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+                            sqlCmd2.Parameters.AddWithValue("@MesnicaUBR", Convert.ToDouble(txtMesnicaUBR.Text));
+                            sqlCmd2.Parameters.AddWithValue("@MesnicaBRKR", Convert.ToDouble(txtMesnicaBRKR.Text));
+                            sqlCmd2.Parameters.AddWithValue("@MesnicaBRSD", Convert.ToDouble(txtMesnicaBRSD.Text));
+                            sqlCmd2.Parameters.AddWithValue("@MesnicaBRGO", Convert.ToDouble(txtMesnicaBRGO.Text));
+                            sqlCmd2.Parameters.AddWithValue("@MesnicaBRKB", Convert.ToDouble(txtMesnicaBRKB.Text));
+                            sqlCmd2.Parameters.AddWithValue("@MesnicaBRDB", Convert.ToDouble(txtMesnicaBRDB.Text));
+                            sqlCmd2.Parameters.AddWithValue("@MesnicaBS", Convert.ToDouble(txtMesnicaBS.Text));
+                            sqlCmd2.Parameters.AddWithValue("@MesnicaSati", Convert.ToDouble(txtMesnicaSati.Text));
+                            sqlCmd2.Parameters.AddWithValue("@MesnicaPromet", Convert.ToDouble(txtMesnicaPromet.Text));
+                            sqlCmd2.Parameters.AddWithValue("@MesnicaUcinkovitost", Convert.ToDouble(txtMesnicaUcinkovitost.Text));
+                            sqlCmd2.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
+                            sqlCmd2.ExecuteScalar();
+                        }
                     }
                     if (ribarnica)
                     {
-                        query = @"INSERT INTO Report
+                        if (odjeliRows)
+                        {
+                            query = @"UPDATE Report
+                                SET Ukupan_broj_radnika = @RibarnicaUBR, Broj_radnika_koji_su_radili = @RibarnicaBRKR,
+                                Broj_radnika_na_slobodnim_danima = @RibarnicaBRSD, Broj_radnika_na_godisnjem_odmoru = @RibarnicaBRGO,
+                                Broj_radnika_na_kratkotrajnom_bolovanju = @RibarnicaBRKB, Broj_radnika_na_dugotrajnom_bolovanju = @RibarnicaBRDB,
+                                Broj_studenata = @RibarnicaBS, Utroseni_radni_sati = @RibarnicaSati, 
+                                Promet = @RibarnicaPromet, Ucinkovitost = @RibarnicaUcinkovitost, Datum = CURRENT_TIMESTAMP
+                                WHERE OdjelId = 2 and PoslovnicaId = @PoslovnicaId and LEFT(Datum,11) = LEFT(CURRENT_TIMESTAMP,11)";
+                            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                            sqlCmd.Parameters.AddWithValue("@RibarnicaUBR", Convert.ToDouble(txtRibarnicaUBR.Text));
+                            sqlCmd.Parameters.AddWithValue("@RibarnicaBRKR", Convert.ToDouble(txtRibarnicaBRKR.Text));
+                            sqlCmd.Parameters.AddWithValue("@RibarnicaBRSD", Convert.ToDouble(txtRibarnicaBRSD.Text));
+                            sqlCmd.Parameters.AddWithValue("@RibarnicaBRGO", Convert.ToDouble(txtRibarnicaBRGO.Text));
+                            sqlCmd.Parameters.AddWithValue("@RibarnicaBRKB", Convert.ToDouble(txtRibarnicaBRKB.Text));
+                            sqlCmd.Parameters.AddWithValue("@RibarnicaBRDB", Convert.ToDouble(txtRibarnicaBRDB.Text));
+                            sqlCmd.Parameters.AddWithValue("@RibarnicaBS", Convert.ToDouble(txtRibarnicaBS.Text));
+                            sqlCmd.Parameters.AddWithValue("@RibarnicaSati", Convert.ToDouble(txtRibarnicaSati.Text));
+                            sqlCmd.Parameters.AddWithValue("@RibarnicaPromet", Convert.ToDouble(txtRibarnicaPromet.Text));
+                            sqlCmd.Parameters.AddWithValue("@RibarnicaUcinkovitost", Convert.ToDouble(txtRibarnicaUcinkovitost.Text));
+                            sqlCmd.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
+                            sqlCmd.ExecuteScalar();
+                        }
+                        else
+                        {
+                            query = @"INSERT INTO Report
                                 VALUES(@RibarnicaUBR, @RibarnicaBRKR, @RibarnicaBRSD, @RibarnicaBRGO, @RibarnicaBRKB, @RibarnicaBRDB, @RibarnicaBS, @RibarnicaSati, @RibarnicaPromet, @RibarnicaUcinkovitost, CURRENT_TIMESTAMP, 2, @PoslovnicaId)";
-                        SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
-                        sqlCmd2.Parameters.AddWithValue("@RibarnicaUBR", Convert.ToDouble(txtRibarnicaUBR.Text));
-                        sqlCmd2.Parameters.AddWithValue("@RibarnicaBRKR", Convert.ToDouble(txtRibarnicaBRKR.Text));
-                        sqlCmd2.Parameters.AddWithValue("@RibarnicaBRSD", Convert.ToDouble(txtRibarnicaBRSD.Text));
-                        sqlCmd2.Parameters.AddWithValue("@RibarnicaBRGO", Convert.ToDouble(txtRibarnicaBRGO.Text));
-                        sqlCmd2.Parameters.AddWithValue("@RibarnicaBRKB", Convert.ToDouble(txtRibarnicaBRKB.Text));
-                        sqlCmd2.Parameters.AddWithValue("@RibarnicaBRDB", Convert.ToDouble(txtRibarnicaBRDB.Text));
-                        sqlCmd2.Parameters.AddWithValue("@RibarnicaBS", Convert.ToDouble(txtRibarnicaBS.Text));
-                        sqlCmd2.Parameters.AddWithValue("@RibarnicaSati", Convert.ToDouble(txtRibarnicaSati.Text));
-                        sqlCmd2.Parameters.AddWithValue("@RibarnicaPromet", Convert.ToDouble(txtRibarnicaPromet.Text));
-                        sqlCmd2.Parameters.AddWithValue("@RibarnicaUcinkovitost", Convert.ToDouble(txtRibarnicaUcinkovitost.Text));
-                        sqlCmd2.Parameters.AddWithValue("@PoslovnicaId", Convert.ToDouble(Session["PoslId"]));
-                        sqlCmd2.ExecuteScalar();
+                            SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+                            sqlCmd2.Parameters.AddWithValue("@RibarnicaUBR", Convert.ToDouble(txtRibarnicaUBR.Text));
+                            sqlCmd2.Parameters.AddWithValue("@RibarnicaBRKR", Convert.ToDouble(txtRibarnicaBRKR.Text));
+                            sqlCmd2.Parameters.AddWithValue("@RibarnicaBRSD", Convert.ToDouble(txtRibarnicaBRSD.Text));
+                            sqlCmd2.Parameters.AddWithValue("@RibarnicaBRGO", Convert.ToDouble(txtRibarnicaBRGO.Text));
+                            sqlCmd2.Parameters.AddWithValue("@RibarnicaBRKB", Convert.ToDouble(txtRibarnicaBRKB.Text));
+                            sqlCmd2.Parameters.AddWithValue("@RibarnicaBRDB", Convert.ToDouble(txtRibarnicaBRDB.Text));
+                            sqlCmd2.Parameters.AddWithValue("@RibarnicaBS", Convert.ToDouble(txtRibarnicaBS.Text));
+                            sqlCmd2.Parameters.AddWithValue("@RibarnicaSati", Convert.ToDouble(txtRibarnicaSati.Text));
+                            sqlCmd2.Parameters.AddWithValue("@RibarnicaPromet", Convert.ToDouble(txtRibarnicaPromet.Text));
+                            sqlCmd2.Parameters.AddWithValue("@RibarnicaUcinkovitost", Convert.ToDouble(txtRibarnicaUcinkovitost.Text));
+                            sqlCmd2.Parameters.AddWithValue("@PoslovnicaId", Convert.ToDouble(Session["PoslId"]));
+                            sqlCmd2.ExecuteScalar();
+                        }
                     }
                     if (gastro)
                     {
-                        query = @"INSERT INTO Report
+                        if (odjeliRows)
+                        {
+                            query = @"UPDATE Report
+                                SET Ukupan_broj_radnika = @GastroUBR, Broj_radnika_koji_su_radili = @GastroBRKR,
+                                Broj_radnika_na_slobodnim_danima = @GastroBRSD, Broj_radnika_na_godisnjem_odmoru = @GastroBRGO,
+                                Broj_radnika_na_kratkotrajnom_bolovanju = @GastroBRKB, Broj_radnika_na_dugotrajnom_bolovanju = @GastroBRDB,
+                                Broj_studenata = @GastroBS, Utroseni_radni_sati = @GastroSati, 
+                                Promet = @GastroPromet, Ucinkovitost = @GastroUcinkovitost, Datum = CURRENT_TIMESTAMP
+                                WHERE OdjelId = 3 and PoslovnicaId = @PoslovnicaId and LEFT(Datum,11) = LEFT(CURRENT_TIMESTAMP,11)";
+                            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                            sqlCmd.Parameters.AddWithValue("@GastroUBR", Convert.ToDouble(txtGastroUBR.Text));
+                            sqlCmd.Parameters.AddWithValue("@GastroBRKR", Convert.ToDouble(txtGastroBRKR.Text));
+                            sqlCmd.Parameters.AddWithValue("@GastroBRSD", Convert.ToDouble(txtGastroBRSD.Text));
+                            sqlCmd.Parameters.AddWithValue("@GastroBRGO", Convert.ToDouble(txtGastroBRGO.Text));
+                            sqlCmd.Parameters.AddWithValue("@GastroBRKB", Convert.ToDouble(txtGastroBRKB.Text));
+                            sqlCmd.Parameters.AddWithValue("@GastroBRDB", Convert.ToDouble(txtGastroBRDB.Text));
+                            sqlCmd.Parameters.AddWithValue("@GastroBS", Convert.ToDouble(txtGastroBS.Text));
+                            sqlCmd.Parameters.AddWithValue("@GastroSati", Convert.ToDouble(txtGastroSati.Text));
+                            sqlCmd.Parameters.AddWithValue("@GastroPromet", Convert.ToDouble(txtGastroPromet.Text));
+                            sqlCmd.Parameters.AddWithValue("@GastroUcinkovitost", Convert.ToDouble(txtGastroUcinkovitost.Text));
+                            sqlCmd.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
+                            sqlCmd.ExecuteScalar();
+                        }
+                        else
+                        {
+                            query = @"INSERT INTO Report
                                 VALUES(@GastroUBR, @GastroBRKR, @GastroBRSD, @GastroBRGO, @GastroBRKB, @GastroBRDB, @GastroBS, @GastroSati, @GastroPromet, @GastroUcinkovitost, CURRENT_TIMESTAMP, 3, @PoslovnicaId)";
-                        SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
-                        sqlCmd2.Parameters.AddWithValue("@GastroUBR", Convert.ToDouble(txtGastroUBR.Text));
-                        sqlCmd2.Parameters.AddWithValue("@GastroBRKR", Convert.ToDouble(txtGastroBRKR.Text));
-                        sqlCmd2.Parameters.AddWithValue("@GastroBRSD", Convert.ToDouble(txtGastroBRSD.Text));
-                        sqlCmd2.Parameters.AddWithValue("@GastroBRGO", Convert.ToDouble(txtGastroBRGO.Text));
-                        sqlCmd2.Parameters.AddWithValue("@GastroBRKB", Convert.ToDouble(txtGastroBRKB.Text));
-                        sqlCmd2.Parameters.AddWithValue("@GastroBRDB", Convert.ToDouble(txtGastroBRDB.Text));
-                        sqlCmd2.Parameters.AddWithValue("@GastroBS", Convert.ToDouble(txtGastroBS.Text));
-                        sqlCmd2.Parameters.AddWithValue("@GastroSati", Convert.ToDouble(txtGastroSati.Text));
-                        sqlCmd2.Parameters.AddWithValue("@GastroPromet", Convert.ToDouble(txtGastroPromet.Text));
-                        sqlCmd2.Parameters.AddWithValue("@GastroUcinkovitost", Convert.ToDouble(txtGastroUcinkovitost.Text));
-                        sqlCmd2.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
-                        sqlCmd2.ExecuteScalar();
+                            SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+                            sqlCmd2.Parameters.AddWithValue("@GastroUBR", Convert.ToDouble(txtGastroUBR.Text));
+                            sqlCmd2.Parameters.AddWithValue("@GastroBRKR", Convert.ToDouble(txtGastroBRKR.Text));
+                            sqlCmd2.Parameters.AddWithValue("@GastroBRSD", Convert.ToDouble(txtGastroBRSD.Text));
+                            sqlCmd2.Parameters.AddWithValue("@GastroBRGO", Convert.ToDouble(txtGastroBRGO.Text));
+                            sqlCmd2.Parameters.AddWithValue("@GastroBRKB", Convert.ToDouble(txtGastroBRKB.Text));
+                            sqlCmd2.Parameters.AddWithValue("@GastroBRDB", Convert.ToDouble(txtGastroBRDB.Text));
+                            sqlCmd2.Parameters.AddWithValue("@GastroBS", Convert.ToDouble(txtGastroBS.Text));
+                            sqlCmd2.Parameters.AddWithValue("@GastroSati", Convert.ToDouble(txtGastroSati.Text));
+                            sqlCmd2.Parameters.AddWithValue("@GastroPromet", Convert.ToDouble(txtGastroPromet.Text));
+                            sqlCmd2.Parameters.AddWithValue("@GastroUcinkovitost", Convert.ToDouble(txtGastroUcinkovitost.Text));
+                            sqlCmd2.Parameters.AddWithValue("@PoslovnicaId", Session["PoslId"]);
+                            sqlCmd2.ExecuteScalar();
+                        }
                     }
                 }
                 lblLabela.Text = "Unos uspješan.";

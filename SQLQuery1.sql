@@ -13,5 +13,15 @@ SELECT * FROM Report
 
 truncate table Report
 
+truncate table Logins
+
+INSERT INTO Logins VALUES (CURRENT_TIMESTAMP, 4)
+
+SELECT LoginId, Username, Vrijeme_prijave FROM Users U
+left outer join Logins L on L.UserId = U.UserId
+WHERE LoginId is not null
+
+
+
 
 
