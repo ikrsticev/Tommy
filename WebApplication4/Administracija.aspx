@@ -25,7 +25,7 @@
 <body>
     <form id="form1" runat="server">
         <div style="float:left" background-color: white;>
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="UserId" DataSourceID="SqlDataSource1" AllowPaging="True" ForeColor="Red" GridLines="None" PageSize="18" Font-Names="Courier New">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="UserId" DataSourceID="SqlDataSource1" AllowPaging="True" ForeColor="Red" GridLines="None" PageSize="18" Font-Names="Courier New" OnRowUpdated="GridView1_RowUpdated">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:CommandField ShowEditButton="True" />
@@ -58,6 +58,7 @@
                     <asp:Parameter Name="UserId" Type="Int32" />
                 </UpdateParameters>
             </asp:SqlDataSource>
+            <asp:Label ID="lblGreska" runat="server"></asp:Label>
             <br />
             <asp:Button ID="btnReturn" CssClass="botun" runat="server" OnClick="btnReturn_Click" Text="Povratak" />
         </div>

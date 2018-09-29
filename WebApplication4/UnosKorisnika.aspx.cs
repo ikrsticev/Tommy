@@ -25,139 +25,155 @@ namespace WebApplication4
 
         protected void btnUnos_Click(object sender, EventArgs e)
         {
-            bool unos = true;
-            lblLabela.Text = "";
-            
-            if(txtUsername.Text.Length == 0)
+            if (Convert.ToBoolean(Session["Write"]))
             {
-                unos = false;
-                lblLabela.Text += "Username prazan.";
-            }
-            else
-            {
-                //Provjerava je li korisnik već unešen
-                using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
-                {
-                    sqlCon.Open();
 
-                    string query = "SELECT COUNT(1) FROM Users WHERE username=@username";
-                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                    sqlCmd.Parameters.AddWithValue("@username", txtUsername.Text.Trim());
-                    int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
-                    if (count == 1)
-                    {
-                        unos = false;
-                        lblLabela.Text += "Korisnik je već u bazi.";
-                    }
-                }
+                bool unos = true;
+                lblLabela.Text = "";
 
-                //Provjera je li korisnik postoji u AD-u
-                bool isValid;
-                
-                try
+                if (txtUsername.Text.Length == 0)
                 {
-                    using (PrincipalContext pc = new PrincipalContext(ContextType.Domain,"192.168.252.4", "sso.appizvjestaji", "Nak0nN0ciD0laziDan"))
-                    {
-                        UserPrincipal foundUser = UserPrincipal.FindByIdentity(pc, IdentityType.UserPrincipalName, txtUsername.Text.Trim());
-                        
-                        isValid =  foundUser != null;
-                        
-                    }
-                }
-                catch
-                {
-                    lblLabela.Text += "Ne može se pristupiti Active Directoryu ili korisnik ne postoji. ";
                     unos = false;
+                    lblLabela.Text += "Username prazan.";
+                }
+                else
+                {
+                    //Provjerava je li korisnik već unešen
+                    using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
+                    {
+                        sqlCon.Open();
+
+                        string query = "SELECT COUNT(1) FROM Users WHERE username=@username";
+                        SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                        sqlCmd.Parameters.AddWithValue("@username", txtUsername.Text.Trim());
+                        int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                        if (count == 1)
+                        {
+                            unos = false;
+                            lblLabela.Text += "Korisnik je već u bazi.";
+                        }
+                    }
+
+                    //Provjera je li korisnik postoji u AD-u
+                    bool isValid;
+
+                    try
+                    {
+                        using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "192.168.252.4", "sso.appizvjestaji", "Nak0nN0ciD0laziDan"))
+                        {
+                            UserPrincipal foundUser = UserPrincipal.FindByIdentity(pc, IdentityType.UserPrincipalName, txtUsername.Text.Trim());
+
+                            isValid = foundUser != null;
+
+                        }
+                    }
+                    catch
+                    {
+                        lblLabela.Text += "Ne može se pristupiti Active Directoryu ili korisnik ne postoji. ";
+                        unos = false;
+                    }
+
+                }
+                if (!txtIme.Text.All(Char.IsLetter) && !rdb3.Checked)
+                {
+                    unos = false;
+                    lblLabela.Text += "Ime smije sadržavati samo slova. ";
                 }
 
-            }
-            if (!txtIme.Text.All(Char.IsLetter) && !rdb3.Checked)
-            {
-                unos = false;
-                lblLabela.Text += "Ime smije sadržavati samo slova. ";
-            }
-
-            if (txtPrezime.Text.Any(Char.IsNumber) || txtPrezime.Text.Any(Char.IsPunctuation) && !rdb3.Checked)
-            {
-                unos = false;
-                lblLabela.Text += "Prezime neispravno. ";
-            }
-
-            if(!rdb3.Checked && (txtIme.Text.Length == 0 || txtPrezime.Text.Length == 0))
-            {
-                unos = false;
-                lblLabela.Text += "Ime i/ili prezime smiju biti prazni samo ako je odabrana poslovnica. ";
-            }
-
-            if (unos && IsValid)
-            {
-                string razina;
-                if (rdb1.Checked) { razina = "1"; }
-                else if (rdb2.Checked) { razina = "2"; }
-                else if (rdb3.Checked) { razina = "3"; }
-                else { razina = "4"; }
-
-                //Unos novog korisnika
-                using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
+                if (txtPrezime.Text.Any(Char.IsNumber) || txtPrezime.Text.Any(Char.IsPunctuation) && !rdb3.Checked)
                 {
-                    sqlCon.Open();
+                    unos = false;
+                    lblLabela.Text += "Prezime neispravno. ";
+                }
 
-                    string query = @"INSERT INTO Users VALUES('" + txtUsername.Text + "','" +
-                        txtIme.Text + "','" + txtPrezime.Text + "','" + razina + "','false','" + cbxWrite.Checked + "')";
-                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                    sqlCmd.ExecuteScalar();
+                if (!rdb3.Checked && (txtIme.Text.Length == 0 || txtPrezime.Text.Length == 0))
+                {
+                    unos = false;
+                    lblLabela.Text += "Ime i/ili prezime smiju biti prazni samo ako je odabrana poslovnica. ";
+                }
 
-                    query = "SELECT SCOPE_IDENTITY()";
-                    SqlCommand sqlCmd6 = new SqlCommand(query, sqlCon);
-                    string UserId = sqlCmd6.ExecuteScalar().ToString();
+                if (unos && IsValid)
+                {
+                    string razina;
+                    if (rdb1.Checked) { razina = "1"; }
+                    else if (rdb2.Checked) { razina = "2"; }
+                    else if (rdb3.Checked) { razina = "3"; }
+                    else { razina = "4"; }
 
-                    lblLabela.Text += "Unos uspješan.";
-
-                    //Poslovnica
-                    if (razina == "3")
+                    //Unos novog korisnika
+                    using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
                     {
-                        query = "INSERT INTO Poslovnica VALUES('" + txtUsername.Text + "')";
-                        SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
-                        sqlCmd2.ExecuteScalar();
+                        sqlCon.Open();
+
+                        string query = @"INSERT INTO Users VALUES('" + txtUsername.Text + "','" +
+                            txtIme.Text + "','" + txtPrezime.Text + "','" + razina + "','false','" + cbxWrite.Checked + "')";
+                        SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                        sqlCmd.ExecuteScalar();
 
                         query = "SELECT SCOPE_IDENTITY()";
-                        SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
-                        string PoslId = sqlCmd3.ExecuteScalar().ToString();
+                        SqlCommand sqlCmd6 = new SqlCommand(query, sqlCon);
+                        string UserId = sqlCmd6.ExecuteScalar().ToString();
 
-                        query = "INSERT INTO Poslovnica_Users VALUES('" + UserId + "','" + PoslId + "')";
-                        SqlCommand sqlCmd7 = new SqlCommand(query, sqlCon);
-                        sqlCmd7.ExecuteScalar();
+                        lblLabela.Text += "Unos uspješan.";
 
-                        query = "INSERT INTO Odjel_Poslovnica VALUES(4,'" + PoslId + "')";
-                        SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
-                        sqlCmd4.ExecuteScalar();
-
-                        if (cbxMesnica.Checked)
+                        //Poslovnica
+                        if (razina == "3")
                         {
-                            query = "INSERT INTO Odjel_Poslovnica VALUES(1,'" + PoslId + "')";
-                            SqlCommand sqlCmd5 = new SqlCommand(query, sqlCon);
-                            sqlCmd5.ExecuteScalar();
+                            query = "INSERT INTO Poslovnica VALUES('" + txtUsername.Text + "')";
+                            SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+                            sqlCmd2.ExecuteScalar();
+
+                            query = "SELECT SCOPE_IDENTITY()";
+                            SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                            string PoslId = sqlCmd3.ExecuteScalar().ToString();
+
+                            query = "INSERT INTO Poslovnica_Users VALUES('" + UserId + "','" + PoslId + "')";
+                            SqlCommand sqlCmd7 = new SqlCommand(query, sqlCon);
+                            sqlCmd7.ExecuteScalar();
+
+                            query = "INSERT INTO Odjel_Poslovnica VALUES(4,'" + PoslId + "')";
+                            SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
+                            sqlCmd4.ExecuteScalar();
+
+                            if (cbxMesnica.Checked)
+                            {
+                                query = "INSERT INTO Odjel_Poslovnica VALUES(1,'" + PoslId + "')";
+                                SqlCommand sqlCmd5 = new SqlCommand(query, sqlCon);
+                                sqlCmd5.ExecuteScalar();
+                            }
+                            if (cbxRibarnica.Checked)
+                            {
+                                query = "INSERT INTO Odjel_Poslovnica VALUES(2,'" + PoslId + "')";
+                                SqlCommand sqlCmd5 = new SqlCommand(query, sqlCon);
+                                sqlCmd5.ExecuteScalar();
+                            }
+                            if (cbxGastro.Checked)
+                            {
+                                query = "INSERT INTO Odjel_Poslovnica VALUES(3,'" + PoslId + "')";
+                                SqlCommand sqlCmd5 = new SqlCommand(query, sqlCon);
+                                sqlCmd5.ExecuteScalar();
+                            }
                         }
-                        if (cbxRibarnica.Checked)
-                        {
-                            query = "INSERT INTO Odjel_Poslovnica VALUES(2,'" + PoslId + "')";
-                            SqlCommand sqlCmd5 = new SqlCommand(query, sqlCon);
-                            sqlCmd5.ExecuteScalar();
-                        }
-                        if (cbxGastro.Checked)
-                        {
-                            query = "INSERT INTO Odjel_Poslovnica VALUES(3,'" + PoslId + "')";
-                            SqlCommand sqlCmd5 = new SqlCommand(query, sqlCon);
-                            sqlCmd5.ExecuteScalar();
-                        }
-                    }
 
-                    //Regionalni menadžer
-                    if(razina == "2")
-                    {
-                        foreach(object item in ListBox1.Items)
+                        //Regionalni menadžer
+                        if (razina == "2")
                         {
-                            query = "SELECT PoslovnicaId FROM Poslovnica WHERE [Broj poslovnice] = '" + item.ToString() + "'";
+                            foreach (object item in ListBox1.Items)
+                            {
+                                query = "SELECT PoslovnicaId FROM Poslovnica WHERE [Broj poslovnice] = '" + item.ToString() + "'";
+                                SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+                                string PoslId = sqlCmd2.ExecuteScalar().ToString();
+
+                                query = "INSERT INTO Poslovnica_Users VALUES('" + UserId + "','" + PoslId + "')";
+                                SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                                sqlCmd3.ExecuteScalar();
+                            }
+                        }
+
+                        //Unos Korisnika
+                        if (razina == "4")
+                        {
+                            query = "SELECT PoslovnicaId FROM Poslovnica WHERE [Broj poslovnice] = '" + ListBox1.Items[0].ToString() + "'";
                             SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
                             string PoslId = sqlCmd2.ExecuteScalar().ToString();
 
@@ -166,25 +182,16 @@ namespace WebApplication4
                             sqlCmd3.ExecuteScalar();
                         }
                     }
-
-                    //Unos Korisnika
-                    if(razina == "4")
-                    {
-                        query = "SELECT PoslovnicaId FROM Poslovnica WHERE [Broj poslovnice] = '" + ListBox1.Items[0].ToString() + "'";
-                        SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
-                        string PoslId = sqlCmd2.ExecuteScalar().ToString();
-
-                        query = "INSERT INTO Poslovnica_Users VALUES('" + UserId + "','" + PoslId + "')";
-                        SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
-                        sqlCmd3.ExecuteScalar();
-                    }
+                }
+                else
+                {
+                    lblLabela.Text = "Neuspješan unos. " + lblLabela.Text;
                 }
             }
             else
             {
-                lblLabela.Text = "Neuspješan unos. " + lblLabela.Text;
+                lblLabela.Text = "Nemate pravo unosa.";
             }
-
         }
 
         protected void btnReturn_Click(object sender, EventArgs e)

@@ -70,33 +70,53 @@ namespace WebApplication4
                             sqlCmd3.Parameters.AddWithValue("@username", Session["username"]);
                             Session["ID"] = int.Parse(sqlCmd3.ExecuteScalar().ToString());
 
-                            query = "INSERT INTO Logins VALUES (CURRENT_TIMESTAMP, @UserId)";
-                            SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
-                            sqlCmd4.Parameters.AddWithValue("@UserId", Session["ID"]);
-                            sqlCmd4.ExecuteScalar();
+                            //Provjeravamo je li račun neaktivan
+                            query = "SELECT disabled FROM Users WHERE UserId = @UserId";
+                            SqlCommand sqlCmd5 = new SqlCommand(query, sqlCon);
+                            sqlCmd5.Parameters.AddWithValue("@UserId", Session["ID"]);
+                            bool disabled = Convert.ToBoolean(sqlCmd5.ExecuteScalar());
 
-                            //Uzimamo Razinu korisnika iz baze koja će 
-                            //odrediti stranicu na koju se korisnik preusmjerava
-                            query = "SELECT RazinaId FROM Users WHERE username=@username";
-                            SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
-                            sqlCmd2.Parameters.AddWithValue("@username", Session["username"]);
-
-                            Session["Razina"] = int.Parse(sqlCmd2.ExecuteScalar().ToString());
-                            switch (Session["Razina"])
+                            if (!disabled)
                             {
-                                case 1:
-                                    Response.Redirect("Admin.aspx");
-                                    break;
-                                case 2:
-                                    Response.Redirect("Regionalni menadzer.aspx");
-                                    break;
-                                case 3:
-                                    Response.Redirect("Poslovnica.aspx");
-                                    break;
-                                case 4:
-                                    Response.Redirect("Korisnik.aspx");
-                                    break;
+                                //Pamtimo login
+                                query = "INSERT INTO Logins VALUES (CURRENT_TIMESTAMP, @UserId)";
+                                SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
+                                sqlCmd4.Parameters.AddWithValue("@UserId", Session["ID"]);
+                                sqlCmd4.ExecuteScalar();
 
+                                //Uzimamo Razinu korisnika iz baze koja će 
+                                //odrediti stranicu na koju se korisnik preusmjerava
+                                query = "SELECT RazinaId FROM Users WHERE username=@username";
+                                SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+                                sqlCmd2.Parameters.AddWithValue("@username", Session["username"]);
+
+                                //Provjeravamo je li korisnik ima pravo unosa
+                                query = "SELECT write FROM Users WHERE UserId = @UserId";
+                                SqlCommand sqlCmd6 = new SqlCommand(query, sqlCon);
+                                sqlCmd6.Parameters.AddWithValue("UserId", Session["ID"]);
+                                Session["Write"] = Convert.ToBoolean(sqlCmd6.ExecuteScalar());
+
+                                Session["Razina"] = int.Parse(sqlCmd2.ExecuteScalar().ToString());
+                                switch (Session["Razina"])
+                                {
+                                    case 1:
+                                        Response.Redirect("Admin.aspx");
+                                        break;
+                                    case 2:
+                                        Response.Redirect("Regionalni menadzer.aspx");
+                                        break;
+                                    case 3:
+                                        Response.Redirect("Poslovnica.aspx");
+                                        break;
+                                    case 4:
+                                        Response.Redirect("Korisnik.aspx");
+                                        break;
+
+                                }
+                            }
+                            else
+                            {
+                                LabelLogin.Text = "Ovaj račun je disabled (neaktivan).";
                             }
                         }
                         else

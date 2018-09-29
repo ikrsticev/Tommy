@@ -31,6 +31,15 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.Label LabelPoslovnica;
         
         /// <summary>
+        /// txtPoslovnicaUBR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaUBR;
+        
+        /// <summary>
         /// txtMesnicaUBR control.
         /// </summary>
         /// <remarks>
@@ -58,13 +67,13 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.TextBox txtGastroUBR;
         
         /// <summary>
-        /// txtPoslovnicaUBR control.
+        /// txtPoslovnicaBRKR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaUBR;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRKR;
         
         /// <summary>
         /// txtMesnicaBRKR control.
@@ -94,13 +103,13 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.TextBox txtGastroBRKR;
         
         /// <summary>
-        /// txtPoslovnicaBRKR control.
+        /// txtPoslovnicaBRSD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRKR;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRSD;
         
         /// <summary>
         /// txtMesnicaBRSD control.
@@ -130,13 +139,13 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.TextBox txtGastroBRSD;
         
         /// <summary>
-        /// txtPoslovnicaBRSD control.
+        /// txtPoslovnicaBRGO control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRSD;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRGO;
         
         /// <summary>
         /// txtMesnicaBRGO control.
@@ -166,13 +175,13 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.TextBox txtGastroBRGO;
         
         /// <summary>
-        /// txtPoslovnicaBRGO control.
+        /// txtPoslovnicaBRKB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRGO;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRKB;
         
         /// <summary>
         /// txtMesnicaBRKB control.
@@ -202,13 +211,13 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.TextBox txtGastroBRKB;
         
         /// <summary>
-        /// txtPoslovnicaBRKB control.
+        /// txtPoslovnicaBRDB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRKB;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRDB;
         
         /// <summary>
         /// txtMesnicaBRDB control.
@@ -238,13 +247,13 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.TextBox txtGastroBRDB;
         
         /// <summary>
-        /// txtPoslovnicaBRDB control.
+        /// txtPoslovnicaBS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRDB;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBS;
         
         /// <summary>
         /// txtMesnicaBS control.
@@ -274,13 +283,13 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.TextBox txtGastroBS;
         
         /// <summary>
-        /// txtPoslovnicaBS control.
+        /// txtPoslovnicaSati control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBS;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaSati;
         
         /// <summary>
         /// txtMesnicaSati control.
@@ -310,13 +319,13 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.TextBox txtGastroSati;
         
         /// <summary>
-        /// txtPoslovnicaSati control.
+        /// txtPoslovnicaPromet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaSati;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaPromet;
         
         /// <summary>
         /// txtMesnicaPromet control.
@@ -346,13 +355,13 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.TextBox txtGastroPromet;
         
         /// <summary>
-        /// txtPoslovnicaPromet control.
+        /// txtPoslovnicaUcinkovitost control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaPromet;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaUcinkovitost;
         
         /// <summary>
         /// txtMesnicaUcinkovitost control.
@@ -380,15 +389,6 @@ namespace WebApplication4 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtGastroUcinkovitost;
-        
-        /// <summary>
-        /// txtPoslovnicaUcinkovitost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaUcinkovitost;
         
         /// <summary>
         /// btnUnesi control.

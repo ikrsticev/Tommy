@@ -20,6 +20,56 @@ namespace WebApplication4
                 Session.Clear();
                 Response.Redirect("Login.aspx.cs");
             }
+
+            if (!IsPostBack)
+            {
+                if (!Convert.ToBoolean(Session["Write"]))
+                {
+                    GridView1.Enabled = false;
+                }
+
+                using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
+                {
+                    sqlCon.Open();
+
+                    string query = "SELECT PoslovnicaId FROM Poslovnica";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    PoslId = sqlCmd.ExecuteScalar().ToString();
+
+                    string odjeli = "";
+
+                    query = "SELECT OdjelId FROM Odjel_Poslovnica OP left outer join Poslovnica P on P.PoslovnicaId = OP.PoslovnicaId WHERE P.PoslovnicaId = '" + PoslId + "'";
+                    SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+                    SqlDataReader dr = sqlCmd2.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        odjeli += dr["OdjelId"];
+                    }
+                    dr.Close();
+                    if (odjeli.Contains("1")) { cbxMesnica.Checked = true; } else { cbxMesnica.Checked = false; }
+                    if (odjeli.Contains("2")) { cbxRibarnica.Checked = true; } else { cbxRibarnica.Checked = false; }
+                    if (odjeli.Contains("3")) { cbxGastro.Checked = true; } else { cbxGastro.Checked = false; }
+
+                    query = "SELECT UserId FROM Users WHERE RazinaId = 2";
+                    SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                    UserId = sqlCmd3.ExecuteScalar().ToString();
+
+                    query = @"SELECT [Broj poslovnice] FROM Poslovnica P 
+left outer join Poslovnica_Users PU on P.PoslovnicaId = PU.PoslovnicaId
+left outer join Users U on PU.UserId = U.UserId
+WHERE  U.UserId = @UserId";
+                    SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
+                    sqlCmd4.Parameters.AddWithValue("@UserId", UserId);
+                    SqlDataReader dr2 = sqlCmd4.ExecuteReader();
+                    while (dr2.Read())
+                    {
+                        ListBox1.Items.Add(dr2.GetString(0));
+                    }
+                    dr2.Close();
+                }
+            }
+
+
         }
 
         protected void btnReturn_Click(object sender, EventArgs e)
@@ -58,63 +108,70 @@ namespace WebApplication4
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            lblUnosRegPoslovnice.Text = "";
-            lblUnosOdjeli.Text = "";
-
-            bool mesnica = cbxMesnica.Checked;
-            bool ribarnica = cbxRibarnica.Checked;
-            bool gastro = cbxGastro.Checked;
-
-            using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
+            if (Convert.ToBoolean(Session["Write"]))
             {
-                
-                sqlCon.Open();
+                lblUnosRegPoslovnice.Text = "";
+                lblUnosOdjeli.Text = "";
 
-                string query = "SELECT PoslovnicaId FROM Poslovnica WHERE [Broj poslovnice] = '" + DropDownList1.SelectedItem + "'";
-                SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
-                PoslId = sqlCmd4.ExecuteScalar().ToString();
+                bool mesnica = cbxMesnica.Checked;
+                bool ribarnica = cbxRibarnica.Checked;
+                bool gastro = cbxGastro.Checked;
 
-                bool q = true;
-                //DELETE query može biti neuspješan ako postoji report s tom poslovnicom
-                try
+                using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
                 {
-                    query = "DELETE FROM Odjel_Poslovnica WHERE PoslovnicaId = " + PoslId;
-                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                    sqlCmd.ExecuteScalar();
-                }
-                catch
-                {
-                    lblUnosOdjeli.Text = "Neuspješan unos. Ta poslovnica ima unesene reportove koji moraju biti izbrisani da bi se odjeli mogli mijenjati.";
-                    q = false;
-                }
 
-                if (q)
-                {
-                    query = "INSERT INTO Odjel_Poslovnica VALUES(4," + PoslId + ")";
-                    SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
-                    sqlCmd2.ExecuteScalar();
+                    sqlCon.Open();
 
-                    if (mesnica)
+                    string query = "SELECT PoslovnicaId FROM Poslovnica WHERE [Broj poslovnice] = '" + DropDownList1.SelectedItem + "'";
+                    SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
+                    PoslId = sqlCmd4.ExecuteScalar().ToString();
+
+                    bool q = true;
+                    //DELETE query može biti neuspješan ako postoji report s tom poslovnicom
+                    try
                     {
-                        query = "INSERT INTO Odjel_Poslovnica VALUES(1," + PoslId + ")";
-                        SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
-                        sqlCmd3.ExecuteScalar();
+                        query = "DELETE FROM Odjel_Poslovnica WHERE PoslovnicaId = " + PoslId;
+                        SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                        sqlCmd.ExecuteScalar();
                     }
-                    if (ribarnica)
+                    catch
                     {
-                        query = "INSERT INTO Odjel_Poslovnica VALUES(2," + PoslId + ")";
-                        SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
-                        sqlCmd3.ExecuteScalar();
+                        lblUnosOdjeli.Text = "Neuspješan unos. Ta poslovnica ima unesene reportove koji moraju biti izbrisani da bi se odjeli mogli mijenjati.";
+                        q = false;
                     }
-                    if (gastro)
+
+                    if (q)
                     {
-                        query = "INSERT INTO Odjel_Poslovnica VALUES(3," + PoslId + ")";
-                        SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
-                        sqlCmd3.ExecuteScalar();
+                        query = "INSERT INTO Odjel_Poslovnica VALUES(4," + PoslId + ")";
+                        SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+                        sqlCmd2.ExecuteScalar();
+
+                        if (mesnica)
+                        {
+                            query = "INSERT INTO Odjel_Poslovnica VALUES(1," + PoslId + ")";
+                            SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                            sqlCmd3.ExecuteScalar();
+                        }
+                        if (ribarnica)
+                        {
+                            query = "INSERT INTO Odjel_Poslovnica VALUES(2," + PoslId + ")";
+                            SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                            sqlCmd3.ExecuteScalar();
+                        }
+                        if (gastro)
+                        {
+                            query = "INSERT INTO Odjel_Poslovnica VALUES(3," + PoslId + ")";
+                            SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                            sqlCmd3.ExecuteScalar();
+                        }
                     }
                 }
+                lblUnosOdjeli.Text = "Unos uspješan";
             }
-            lblUnosOdjeli.Text = "Unos uspješan";
+            else
+            {
+                lblUnosOdjeli.Text = "Nemate pravo unosa.";
+            }
         }
 
         protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,12 +185,8 @@ namespace WebApplication4
             {
 
                 sqlCon.Open();
-
-                string query = "SELECT UserId FROM Users WHERE Username = '" + DropDownRM.SelectedItem + "'";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                UserId = sqlCmd.ExecuteScalar().ToString();
-
-                query = @"SELECT [Broj poslovnice] FROM Poslovnica P 
+                
+                string query = @"SELECT [Broj poslovnice] FROM Poslovnica P 
 left outer join Poslovnica_Users PU on P.PoslovnicaId = PU.PoslovnicaId
 left outer join Users U on PU.UserId = U.UserId
 WHERE  U.Username = '" + DropDownRM.SelectedItem + "'";
@@ -166,33 +219,50 @@ WHERE  U.Username = '" + DropDownRM.SelectedItem + "'";
 
         protected void btnUnesiPoslovnice_Click(object sender, EventArgs e)
         {
-            lblUnosRegPoslovnice.Text = "";
-            lblUnosOdjeli.Text = "";
-
-            using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
+            if (Convert.ToBoolean(Session["Write"]))
             {
-                sqlCon.Open();
+                lblUnosRegPoslovnice.Text = "";
+                lblUnosOdjeli.Text = "";
 
-                string query = "SELECT UserId FROM Users WHERE Username = '" + DropDownRM.SelectedItem + "'";
-                SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
-                UserId = sqlCmd4.ExecuteScalar().ToString();
-                
-                query = "DELETE FROM Poslovnica_Users WHERE UserId = '" + UserId + "'";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.ExecuteScalar();
-                
-                foreach (object item in ListBox1.Items)
+                using (SqlConnection sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\praksa\TommyReport\WebApplication4\App_Data\Tommy_upgrade.mdf;Integrated Security=True"))
                 {
-                    query = "SELECT PoslovnicaId FROM Poslovnica WHERE [Broj poslovnice] = '" + item +"'";
-                    SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
-                    string PoslId2 = sqlCmd2.ExecuteScalar().ToString();
+                    sqlCon.Open();
 
-                    query = "INSERT INTO Poslovnica_Users VALUES(" + UserId + "," + PoslId2 + ")";
-                    SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
-                    sqlCmd3.ExecuteScalar();
+                    string query = "SELECT UserId FROM Users WHERE Username = '" + DropDownRM.SelectedItem + "'";
+                    SqlCommand sqlCmd4 = new SqlCommand(query, sqlCon);
+                    UserId = sqlCmd4.ExecuteScalar().ToString();
+
+                    query = "DELETE FROM Poslovnica_Users WHERE UserId = '" + UserId + "'";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.ExecuteScalar();
+
+                    foreach (object item in ListBox1.Items)
+                    {
+                        query = "SELECT PoslovnicaId FROM Poslovnica WHERE [Broj poslovnice] = '" + item + "'";
+                        SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+                        string PoslId2 = sqlCmd2.ExecuteScalar().ToString();
+
+                        query = "INSERT INTO Poslovnica_Users VALUES(" + UserId + "," + PoslId2 + ")";
+                        SqlCommand sqlCmd3 = new SqlCommand(query, sqlCon);
+                        sqlCmd3.ExecuteScalar();
+                    }
                 }
+                lblUnosRegPoslovnice.Text = "Unos uspješan.";
             }
-            lblUnosRegPoslovnice.Text = "Unos uspješan.";
+            else
+            {
+                lblUnosRegPoslovnice.Text = "Nemate pravo unosa.";
+            }
+        }
+
+        protected void GridView1_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+        {
+            if (e.Exception != null)
+            {
+                lblGreska.Text = "Došlo je do pogreškre pri update-u.";
+                e.ExceptionHandled = true;
+            }
+
         }
     }
 }
