@@ -31,13 +31,13 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.Label lblPoslovnica;
         
         /// <summary>
-        /// GridViewPoslovnica control.
+        /// DropDownList1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewPoslovnica;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
         /// SqlDataSource1 control.
@@ -49,85 +49,364 @@ namespace WebApplication4 {
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
-        /// lblMesnica control.
+        /// txtPoslovnicaUBR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMesnica;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaUBR;
         
         /// <summary>
-        /// GridViewMesnica control.
+        /// txtMesnicaUBR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewMesnica;
+        protected global::System.Web.UI.WebControls.TextBox txtMesnicaUBR;
         
         /// <summary>
-        /// SqlDataSource2 control.
+        /// txtRibarnicaUBR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
+        protected global::System.Web.UI.WebControls.TextBox txtRibarnicaUBR;
         
         /// <summary>
-        /// lblRibarnica control.
+        /// txtGastroUBR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRibarnica;
+        protected global::System.Web.UI.WebControls.TextBox txtGastroUBR;
         
         /// <summary>
-        /// GridViewRibarnica control.
+        /// txtPoslovnicaBRKR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewRibarnica;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRKR;
         
         /// <summary>
-        /// SqlDataSource3 control.
+        /// txtMesnicaBRKR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource3;
+        protected global::System.Web.UI.WebControls.TextBox txtMesnicaBRKR;
         
         /// <summary>
-        /// lblGastro control.
+        /// txtRibarnicaBRKR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGastro;
+        protected global::System.Web.UI.WebControls.TextBox txtRibarnicaBRKR;
         
         /// <summary>
-        /// GridViewGastro control.
+        /// txtGastroBRKR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewGastro;
+        protected global::System.Web.UI.WebControls.TextBox txtGastroBRKR;
         
         /// <summary>
-        /// SqlDataSource4 control.
+        /// txtPoslovnicaBRSD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource4;
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRSD;
+        
+        /// <summary>
+        /// txtMesnicaBRSD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMesnicaBRSD;
+        
+        /// <summary>
+        /// txtRibarnicaBRSD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRibarnicaBRSD;
+        
+        /// <summary>
+        /// txtGastroBRSD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGastroBRSD;
+        
+        /// <summary>
+        /// txtPoslovnicaBRGO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRGO;
+        
+        /// <summary>
+        /// txtMesnicaBRGO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMesnicaBRGO;
+        
+        /// <summary>
+        /// txtRibarnicaBRGO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRibarnicaBRGO;
+        
+        /// <summary>
+        /// txtGastroBRGO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGastroBRGO;
+        
+        /// <summary>
+        /// txtPoslovnicaBRKB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRKB;
+        
+        /// <summary>
+        /// txtMesnicaBRKB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMesnicaBRKB;
+        
+        /// <summary>
+        /// txtRibarnicaBRKB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRibarnicaBRKB;
+        
+        /// <summary>
+        /// txtGastroBRKB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGastroBRKB;
+        
+        /// <summary>
+        /// txtPoslovnicaBRDB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBRDB;
+        
+        /// <summary>
+        /// txtMesnicaBRDB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMesnicaBRDB;
+        
+        /// <summary>
+        /// txtRibarnicaBRDB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRibarnicaBRDB;
+        
+        /// <summary>
+        /// txtGastroBRDB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGastroBRDB;
+        
+        /// <summary>
+        /// txtPoslovnicaBS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaBS;
+        
+        /// <summary>
+        /// txtMesnicaBS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMesnicaBS;
+        
+        /// <summary>
+        /// txtRibarnicaBS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRibarnicaBS;
+        
+        /// <summary>
+        /// txtGastroBS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGastroBS;
+        
+        /// <summary>
+        /// txtPoslovnicaSati control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaSati;
+        
+        /// <summary>
+        /// txtMesnicaSati control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMesnicaSati;
+        
+        /// <summary>
+        /// txtRibarnicaSati control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRibarnicaSati;
+        
+        /// <summary>
+        /// txtGastroSati control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGastroSati;
+        
+        /// <summary>
+        /// txtPoslovnicaPromet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaPromet;
+        
+        /// <summary>
+        /// txtMesnicaPromet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMesnicaPromet;
+        
+        /// <summary>
+        /// txtRibarnicaPromet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRibarnicaPromet;
+        
+        /// <summary>
+        /// txtGastroPromet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGastroPromet;
+        
+        /// <summary>
+        /// txtPoslovnicaUcinkovitost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPoslovnicaUcinkovitost;
+        
+        /// <summary>
+        /// txtMesnicaUcinkovitost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMesnicaUcinkovitost;
+        
+        /// <summary>
+        /// txtRibarnicaUcinkovitost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRibarnicaUcinkovitost;
+        
+        /// <summary>
+        /// txtGastroUcinkovitost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGastroUcinkovitost;
         
         /// <summary>
         /// Button1 control.

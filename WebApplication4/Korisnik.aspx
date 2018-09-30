@@ -6,154 +6,196 @@
 <head runat="server">
     <title>Korisnik</title>
     <style>
+        th{
+            background-color:#E90000;
+        }
         .botun {
-    font-family: Courier New;
-    color: white;
-    background: #E90000;
-    height: 28px;
-}
+            font-family: Courier New;
+            color: white;
+            background: #E90000;
+            height: 28px;
+        }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            <b>Poslovnica:<asp:Label ID="lblPoslovnica" runat="server"></asp:Label></b>
+            <br /><b>Poslovnica:<asp:Label ID="lblPoslovnica" runat="server"></asp:Label>
             <br />
-            <asp:GridView ID="GridViewPoslovnica" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource1" AllowPaging="True" PageSize="1" Font-Names="Courier New">
-                <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
-                    <asp:BoundField DataField="Ukupan broj radnika" HeaderText="Ukupan broj radnika" SortExpression="Ukupan broj radnika" />
-                    <asp:BoundField DataField="Broj radnika koji su radili" HeaderText="Broj radnika koji su radili" SortExpression="Broj radnika koji su radili" />
-                    <asp:BoundField DataField="Broj radnika na slobodnim danima" HeaderText="Broj radnika na slobodnim danima" SortExpression="Broj radnika na slobodnim danima" />
-                    <asp:BoundField DataField="Broj radnika na godišnjem odmoru" HeaderText="Broj radnika na godišnjem odmoru" SortExpression="Broj radnika na godišnjem odmoru" />
-                    <asp:BoundField DataField="Broj radnika na kratkotrajnom bolovanju" HeaderText="Broj radnika na kratkotrajnom bolovanju" SortExpression="Broj radnika na kratkotrajnom bolovanju" />
-                    <asp:BoundField DataField="Broj radnika na dugotrajnom bolovanju" HeaderText="Broj radnika na dugotrajnom bolovanju" SortExpression="Broj radnika na dugotrajnom bolovanju" />
-                    <asp:BoundField DataField="Broj studenata" HeaderText="Broj studenata" SortExpression="Broj studenata" />
-                    <asp:BoundField DataField="Utrošeni radni sati" HeaderText="Utrošeni radni sati" SortExpression="Utrošeni radni sati" />
-                    <asp:BoundField DataField="Promet" HeaderText="Promet" SortExpression="Promet" />
-                    <asp:BoundField DataField="Učinkovitost" HeaderText="Učinkovitost" SortExpression="Učinkovitost" />
-                    <asp:BoundField DataField="Datum" HeaderText="Datum" SortExpression="Datum" />
-                    <asp:BoundField DataField="Odjel" HeaderText="Odjel" SortExpression="Odjel" />
-                    <asp:BoundField DataField="PoslovnicaId" HeaderText="PoslovnicaId" SortExpression="PoslovnicaId" />
-                </Columns>
-                <HeaderStyle BackColor="#E90000" />
-            </asp:GridView>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Tommy_upgradeConnectionString %>" SelectCommand="SELECT ReportId AS ID, Ukupan_broj_radnika AS [Ukupan broj radnika], Broj_radnika_koji_su_radili AS [Broj radnika koji su radili], Broj_radnika_na_slobodnim_danima AS [Broj radnika na slobodnim danima], Broj_radnika_na_godisnjem_odmoru AS [Broj radnika na godišnjem odmoru], Broj_radnika_na_kratkotrajnom_bolovanju AS [Broj radnika na kratkotrajnom bolovanju], Broj_radnika_na_dugotrajnom_bolovanju AS [Broj radnika na dugotrajnom bolovanju], Broj_studenata AS [Broj studenata], Utroseni_radni_sati AS [Utrošeni radni sati], Promet, Ucinkovitost AS Učinkovitost, Datum, OdjelId AS Odjel, PoslovnicaId FROM Report WHERE (OdjelId = @OdjelId) AND (PoslovnicaId = @PoslovnicaId) ORDER BY Datum DESC">
+            <br />
+            Datum:</b><asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="Datum" DataValueField="Datum" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="True">
+            </asp:DropDownList>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Tommy_upgradeConnectionString %>" SelectCommand="SELECT LEFT([Datum],11) AS datum FROM [Report] WHERE (([PoslovnicaId] = @PoslovnicaId) AND ([OdjelId] = @OdjelId)) ORDER BY [Datum] DESC">
                 <SelectParameters>
-                    <asp:Parameter DefaultValue="4" Name="OdjelId" Type="Int32" />
                     <asp:SessionParameter Name="PoslovnicaId" SessionField="PoslId" Type="Int32" />
+                    <asp:Parameter DefaultValue="4" Name="OdjelId" Type="Int32" />
                 </SelectParameters>
             </asp:SqlDataSource>
-            <br />
-            <b><asp:Label ID="lblMesnica" runat="server" Text="Mesnica"></asp:Label></b>
-        </div>
-        <asp:GridView ID="GridViewMesnica" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource2" PageSize="1" Font-Names="Courier New">
-            <Columns>
-                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
-                <asp:BoundField DataField="Ukupan broj radnika" HeaderText="Ukupan broj radnika" SortExpression="Ukupan broj radnika" />
-                <asp:BoundField DataField="Broj radnika koji su radili" HeaderText="Broj radnika koji su radili" SortExpression="Broj radnika koji su radili" />
-                <asp:BoundField DataField="Broj radnika na slobodnim danima" HeaderText="Broj radnika na slobodnim danima" SortExpression="Broj radnika na slobodnim danima" />
-                <asp:BoundField DataField="Broj radnika na godišnjem odmoru" HeaderText="Broj radnika na godišnjem odmoru" SortExpression="Broj radnika na godišnjem odmoru" />
-                <asp:BoundField DataField="Broj radnika na kratkotrajnom bolovanju" HeaderText="Broj radnika na kratkotrajnom bolovanju" SortExpression="Broj radnika na kratkotrajnom bolovanju" />
-                <asp:BoundField DataField="Broj radnika na dugotrajnom bolovanju" HeaderText="Broj radnika na dugotrajnom bolovanju" SortExpression="Broj radnika na dugotrajnom bolovanju" />
-                <asp:BoundField DataField="Broj studenata" HeaderText="Broj studenata" SortExpression="Broj studenata" />
-                <asp:BoundField DataField="Utrošeni radni sati" HeaderText="Utrošeni radni sati" SortExpression="Utrošeni radni sati" />
-                <asp:BoundField DataField="Promet" HeaderText="Promet" SortExpression="Promet" />
-                <asp:BoundField DataField="Učinkovitost" HeaderText="Učinkovitost" SortExpression="Učinkovitost" />
-                <asp:BoundField DataField="Datum" HeaderText="Datum" SortExpression="Datum" />
-                <asp:BoundField DataField="Odjel" HeaderText="Odjel" SortExpression="Odjel" />
-                <asp:BoundField DataField="PoslovnicaId" HeaderText="PoslovnicaId" SortExpression="PoslovnicaId" />
-            </Columns>
-            <HeaderStyle BackColor="#E90000" />
-        </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:Tommy_upgradeConnectionString %>" SelectCommand="SELECT ReportId as ID, Ukupan_broj_radnika as [Ukupan broj radnika],
-Broj_radnika_koji_su_radili as [Broj radnika koji su radili],
-Broj_radnika_na_slobodnim_danima as [Broj radnika na slobodnim danima],
-Broj_radnika_na_godisnjem_odmoru as [Broj radnika na godišnjem odmoru],
-Broj_radnika_na_kratkotrajnom_bolovanju as [Broj radnika na kratkotrajnom bolovanju],
-Broj_radnika_na_dugotrajnom_bolovanju as [Broj radnika na dugotrajnom bolovanju],
-Broj_studenata as [Broj studenata], Utroseni_radni_sati as [Utrošeni radni sati],
-Promet, Ucinkovitost as Učinkovitost, Datum, OdjelId as Odjel, PoslovnicaId
- FROM Report WHERE (([OdjelId] = @OdjelId) AND ([PoslovnicaId] = @PoslovnicaId)) ORDER BY [Datum] DESC">
-            <SelectParameters>
-                <asp:Parameter DefaultValue="1" Name="OdjelId" Type="Int32" />
-                <asp:SessionParameter Name="PoslovnicaId" SessionField="PoslId" Type="Int32" />
-            </SelectParameters>
-        </asp:SqlDataSource>
-        <br />
-        <b><asp:Label ID="lblRibarnica" runat="server" Text="Ribarnica"></asp:Label></b>
-        <asp:GridView ID="GridViewRibarnica" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource3" PageSize="1" Font-Names="Courier New">
-            <Columns>
-                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
-                <asp:BoundField DataField="Ukupan broj radnika" HeaderText="Ukupan broj radnika" SortExpression="Ukupan broj radnika" />
-                <asp:BoundField DataField="Broj radnika koji su radili" HeaderText="Broj radnika koji su radili" SortExpression="Broj radnika koji su radili" />
-                <asp:BoundField DataField="Broj radnika na slobodnim danima" HeaderText="Broj radnika na slobodnim danima" SortExpression="Broj radnika na slobodnim danima" />
-                <asp:BoundField DataField="Broj radnika na godišnjem odmoru" HeaderText="Broj radnika na godišnjem odmoru" SortExpression="Broj radnika na godišnjem odmoru" />
-                <asp:BoundField DataField="Broj radnika na kratkotrajnom bolovanju" HeaderText="Broj radnika na kratkotrajnom bolovanju" SortExpression="Broj radnika na kratkotrajnom bolovanju" />
-                <asp:BoundField DataField="Broj radnika na dugotrajnom bolovanju" HeaderText="Broj radnika na dugotrajnom bolovanju" SortExpression="Broj radnika na dugotrajnom bolovanju" />
-                <asp:BoundField DataField="Broj studenata" HeaderText="Broj studenata" SortExpression="Broj studenata" />
-                <asp:BoundField DataField="Utrošeni radni sati" HeaderText="Utrošeni radni sati" SortExpression="Utrošeni radni sati" />
-                <asp:BoundField DataField="Promet" HeaderText="Promet" SortExpression="Promet" />
-                <asp:BoundField DataField="Učinkovitost" HeaderText="Učinkovitost" SortExpression="Učinkovitost" />
-                <asp:BoundField DataField="Datum" HeaderText="Datum" SortExpression="Datum" />
-                <asp:BoundField DataField="Odjel" HeaderText="Odjel" SortExpression="Odjel" />
-                <asp:BoundField DataField="PoslovnicaId" HeaderText="PoslovnicaId" SortExpression="PoslovnicaId" />
-            </Columns>
-            <HeaderStyle BackColor="#E90000" />
-        </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Tommy_upgradeConnectionString %>" SelectCommand="SELECT ReportId as ID, Ukupan_broj_radnika as [Ukupan broj radnika],
-Broj_radnika_koji_su_radili as [Broj radnika koji su radili],
-Broj_radnika_na_slobodnim_danima as [Broj radnika na slobodnim danima],
-Broj_radnika_na_godisnjem_odmoru as [Broj radnika na godišnjem odmoru],
-Broj_radnika_na_kratkotrajnom_bolovanju as [Broj radnika na kratkotrajnom bolovanju],
-Broj_radnika_na_dugotrajnom_bolovanju as [Broj radnika na dugotrajnom bolovanju],
-Broj_studenata as [Broj studenata], Utroseni_radni_sati as [Utrošeni radni sati],
-Promet, Ucinkovitost as Učinkovitost, Datum, OdjelId as Odjel, PoslovnicaId
- FROM Report WHERE (([OdjelId] = @OdjelId) AND ([PoslovnicaId] = @PoslovnicaId)) ORDER BY [Datum] DESC">
-            <SelectParameters>
-                <asp:Parameter DefaultValue="2" Name="OdjelId" Type="Int32" />
-                <asp:SessionParameter Name="PoslovnicaId" SessionField="PoslId" Type="Int32" />
-            </SelectParameters>
-        </asp:SqlDataSource>
-        <br />
-        <b><asp:Label ID="lblGastro" runat="server" Text="Gastro odijel"></asp:Label></b>
-        <asp:GridView ID="GridViewGastro" runat="server" AllowPaging="True" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource4" PageSize="1" Font-Names="Courier New">
-            <Columns>
-                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
-                <asp:BoundField DataField="Ukupan broj radnika" HeaderText="Ukupan broj radnika" SortExpression="Ukupan broj radnika" />
-                <asp:BoundField DataField="Broj radnika koji su radili" HeaderText="Broj radnika koji su radili" SortExpression="Broj radnika koji su radili" />
-                <asp:BoundField DataField="Broj radnika na slobodnim danima" HeaderText="Broj radnika na slobodnim danima" SortExpression="Broj radnika na slobodnim danima" />
-                <asp:BoundField DataField="Broj radnika na godišnjem odmoru" HeaderText="Broj radnika na godišnjem odmoru" SortExpression="Broj radnika na godišnjem odmoru" />
-                <asp:BoundField DataField="Broj radnika na kratkotrajnom bolovanju" HeaderText="Broj radnika na kratkotrajnom bolovanju" SortExpression="Broj radnika na kratkotrajnom bolovanju" />
-                <asp:BoundField DataField="Broj radnika na dugotrajnom bolovanju" HeaderText="Broj radnika na dugotrajnom bolovanju" SortExpression="Broj radnika na dugotrajnom bolovanju" />
-                <asp:BoundField DataField="Broj studenata" HeaderText="Broj studenata" SortExpression="Broj studenata" />
-                <asp:BoundField DataField="Utrošeni radni sati" HeaderText="Utrošeni radni sati" SortExpression="Utrošeni radni sati" />
-                <asp:BoundField DataField="Promet" HeaderText="Promet" SortExpression="Promet" />
-                <asp:BoundField DataField="Učinkovitost" HeaderText="Učinkovitost" SortExpression="Učinkovitost" />
-                <asp:BoundField DataField="Datum" HeaderText="Datum" SortExpression="Datum" />
-                <asp:BoundField DataField="Odjel" HeaderText="Odjel" SortExpression="Odjel" />
-                <asp:BoundField DataField="PoslovnicaId" HeaderText="PoslovnicaId" SortExpression="PoslovnicaId" />
-            </Columns>
-            <HeaderStyle BackColor="#E90000" />
-        </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:Tommy_upgradeConnectionString %>" SelectCommand="SELECT ReportId as ID, Ukupan_broj_radnika as [Ukupan broj radnika],
-Broj_radnika_koji_su_radili as [Broj radnika koji su radili],
-Broj_radnika_na_slobodnim_danima as [Broj radnika na slobodnim danima],
-Broj_radnika_na_godisnjem_odmoru as [Broj radnika na godišnjem odmoru],
-Broj_radnika_na_kratkotrajnom_bolovanju as [Broj radnika na kratkotrajnom bolovanju],
-Broj_radnika_na_dugotrajnom_bolovanju as [Broj radnika na dugotrajnom bolovanju],
-Broj_studenata as [Broj studenata], Utroseni_radni_sati as [Utrošeni radni sati],
-Promet, Ucinkovitost as Učinkovitost, Datum, OdjelId as Odjel, PoslovnicaId
- FROM Report WHERE (([OdjelId] = @OdjelId) AND ([PoslovnicaId] = @PoslovnicaId)) ORDER BY [Datum] DESC">
-            <SelectParameters>
-                <asp:Parameter DefaultValue="3" Name="OdjelId" Type="Int32" />
-                <asp:SessionParameter Name="PoslovnicaId" SessionField="PoslId" Type="Int32" />
-            </SelectParameters>
-        </asp:SqlDataSource>
+            <br /><hr /><br />
+            <table>
+	<tr>
+		<th>Podatci:</th>
+		<th>Poslovnica</th>
+		<th>Mesnica</th>
+		<th>Ribarnica</th>
+		<th>Gastro odjel</th>
+	</tr>
+	<tr>
+		<td>Ukupan broj radnika:</td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaUBR" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtMesnicaUBR" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaUBR" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroUBR" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+	</tr>
+	<tr>
+		<td>Broj radnika koji su radili:</td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBRKR" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBRKR" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBRKR" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBRKR" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+	</tr>
+	<tr>
+		<td>Broj radnika na slobodnim danima:</td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBRSD" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBRSD" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBRSD" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBRSD" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+	</tr>
+	<tr>
+		<td>Broj radnika na godišnjem odmoru:</td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBRGO" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBRGO" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBRGO" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBRGO" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+	</tr>
+	<tr>
+		<td>Broj radnika na kratkotrajnom bolovanju:</td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBRKB" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBRKB" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBRKB" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBRKB" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+	</tr>
+	<tr>
+		<td>Broj radnika na dugotrajnom bolovanju:</td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBRDB" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBRDB" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBRDB" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBRDB" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+	</tr>
+	<tr>
+		<td>Broj studenata:</td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaBS" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtMesnicaBS" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaBS" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroBS" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+	</tr>
+	<tr>
+		<td>Utrošeni radni sati (A):</td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaSati" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtMesnicaSati" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaSati" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroSati" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+	</tr>
+	<tr>
+		<td class="auto-style1">Promet (B):</td>
+		<td class="auto-style1">
+            <asp:TextBox ID="txtPoslovnicaPromet" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td class="auto-style1">
+            <asp:TextBox ID="txtMesnicaPromet" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td class="auto-style1">
+            <asp:TextBox ID="txtRibarnicaPromet" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td class="auto-style1">
+            <asp:TextBox ID="txtGastroPromet" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+	</tr>
+	<tr>
+		<td>Učinkovitost (A/B):</td>
+		<td>
+            <asp:TextBox ID="txtPoslovnicaUcinkovitost" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtMesnicaUcinkovitost" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtRibarnicaUcinkovitost" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+		<td>
+            <asp:TextBox ID="txtGastroUcinkovitost" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+	</tr>
+	</table><hr />
         <br />
         <asp:Button ID="Button1" runat="server" CssClass="botun" Text="Odjava" OnClick="Button1_Click" />
         <br />
         <asp:Label ID="lblLabela" runat="server"></asp:Label>
+            </div>
     </form>
 </body>
 </html>
